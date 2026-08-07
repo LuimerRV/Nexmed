@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NEXMED — Soluciones Médicas</title>
+    <meta
+      name="description"
+      content="NEXMED conecta pacientes, profesionales e instituciones con soluciones médicas confiables, respaldadas clínicamente."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body data-page="inicio">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-btn focus:bg-brand-blue focus:px-4 focus:py-2 focus:text-white"
+    >
+      Saltar al contenido
+    </a>
+
+    <div id="header-sentinel" class="h-px" aria-hidden="true"></div>
+    <header id="site-header" class="fixed inset-x-0 top-0 z-50">
+      <div
+        class="header-row relative grid w-full grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 pt-[50px] pb-6 md:px-5 lg:px-[70px]"
+      >
+        <a
+          href="index.html"
+          class="relative block h-8 w-auto shrink-0 justify-self-start transition-opacity duration-300 hover:opacity-80 lg:h-15"
+          aria-label="NEXMED, ir al inicio"
+        >
+          <img
+            src="assets/images/logo-dondo-oscuro.png"
+            alt="NEXMED Soluciones Médicas"
+            width="3508"
+            height="1430"
+            class="logo-on-hero block h-[37px] w-auto lg:h-[69px]"
+          />
+          <img
+            src="assets/images/nexmed-logo.png"
+            alt="NEXMED Soluciones Médicas"
+            width="3508"
+            height="1430"
+            class="logo-on-scroll absolute inset-0 h-[37px] w-auto opacity-0 lg:h-[69px]"
+          />
+        </a>
+
+        <nav aria-label="Navegación principal" class="hidden justify-self-center lg:block">
+          <ul id="primary-nav-list" class="header-nav-pill flex items-center gap-1 rounded-full p-1.5"></ul>
+        </nav>
+
+        <div class="flex items-center justify-self-end gap-3">
+          <button
+            type="button"
+            id="search-toggle-button"
+            aria-expanded="false"
+            aria-controls="search-panel"
+            aria-label="Buscar"
+            class="header-icon-pill flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5">
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="M20 20l-4.8-4.8" />
+            </svg>
+          </button>
+
+          <a
+            href="carrito.html"
+            aria-label="Carrito, vacío"
+            class="header-icon-pill relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5">
+              <path d="M3 4h2l1.6 10.6a2 2 0 0 0 2 1.7h8.4a2 2 0 0 0 2-1.6L20.5 8H6" />
+              <circle cx="9" cy="20" r="1.4" />
+              <circle cx="17" cy="20" r="1.4" />
+            </svg>
+          </a>
+
+          <button
+            type="button"
+            id="mobile-menu-button"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            aria-label="Abrir menú"
+            class="header-icon-pill flex h-11 w-11 shrink-0 items-center justify-center rounded-full lg:hidden"
+          >
+            <svg id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5">
+              <path d="M4 7h16" />
+              <path d="M4 12h16" />
+              <path d="M4 17h16" />
+            </svg>
+            <svg id="icon-close" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 6l12 12" />
+              <path d="M18 6L6 18" />
+            </svg>
+          </button>
+        </div>
+
+        <div
+          id="mobile-menu"
+          role="region"
+          aria-label="Menú de navegación"
+          hidden
+          class="absolute inset-x-0 top-full border-t border-border bg-surface p-6 shadow-soft lg:hidden"
+        >
+          <nav aria-label="Navegación principal">
+            <ul id="mobile-nav-list" class="flex flex-col gap-5"></ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div id="search-overlay" hidden aria-hidden="true"></div>
+
+    <div id="search-panel" role="search" hidden class="search-panel">
+      <form class="search-panel__input-row" onsubmit="event.preventDefault()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5 shrink-0 text-ink-secondary">
+          <circle cx="10.5" cy="10.5" r="6.5" />
+          <path d="M20 20l-4.8-4.8" />
+        </svg>
+        <label for="header-search-input" class="sr-only">Buscar productos, marcas, categorías</label>
+        <input
+          id="header-search-input"
+          type="search"
+          name="q"
+          placeholder="Buscar productos, marcas, categorías..."
+          autocomplete="off"
+          class="search-panel__input"
+        />
+        <button type="button" id="search-clear-button" aria-label="Limpiar búsqueda" class="search-panel__clear" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </form>
+
+      <a href="tienda.html" class="search-panel__see-all">Ver todos los resultados</a>
+
+      <div id="search-results" class="search-panel__results">
+        <p class="search-panel__empty">Escribe para buscar en nuestro catálogo.</p>
+      </div>
+    </div>
+
+    <main id="main-content">
+      <section id="hero" class="p-[10px]">
+        <div
+          class="hero-bg relative min-h-[calc(100vh-20px)] overflow-hidden rounded-hero bg-ink-primary"
+          role="img"
+          aria-label="Persona ajustando una órtesis de rodilla"
+        >
+          <div class="hero-scrim absolute inset-0" aria-hidden="true"></div>
+
+          <div class="relative z-10 flex min-h-[calc(100vh-20px)] items-center px-6 pt-16 pb-16 sm:px-10 lg:px-[60px] lg:pt-[188px]">
+            <div class="max-w-xl">
+              <p
+                class="hero-eyebrow mb-5 text-sm font-semibold uppercase tracking-[0.14em] text-white/75"
+              >
+                Soluciones médicas · Respaldo profesional
+              </p>
+              <h1
+                class="hero-title font-display text-[36px] leading-[1.08] text-white sm:text-[48px] lg:text-[50px]"
+              >
+                Órtesis, plantillas e insumos con respaldo clínico
+              </h1>
+              <p class="hero-description mt-6 text-base leading-relaxed text-white/80">
+                En NEXMED reunimos plantillas a medida, órtesis, insumos y suplementos del área
+                salud en un solo lugar. Compra en pocos pasos, con despacho a todo Chile y
+                respaldo profesional.
+              </p>
+              <div class="hero-actions mt-9 flex flex-wrap items-center gap-4">
+                <a
+                  href="tienda.html"
+                  class="inline-flex items-center justify-center rounded-btn bg-brand-blue px-7 py-3.5 text-base font-semibold text-white transition-colors duration-300 hover:bg-brand-purple"
+                >
+                  Comprar ahora
+                </a>
+                <a
+                  href="tienda.html#plantillas"
+                  class="inline-flex items-center justify-center rounded-btn border border-white/40 px-7 py-3.5 text-base font-semibold text-white transition-colors duration-300 hover:border-white hover:bg-white/10"
+                >
+                  Ver plantillas
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="beneficios" class="bg-surface px-4 py-[80px] md:px-5 lg:px-[70px] lg:py-[70px]">
+        <div data-reveal-group class="grid gap-6 sm:grid-cols-3">
+          <div class="benefit-card--textured benefit-card--texture-full rounded-card bg-[#F3F3F3] p-8">
+            <div class="relative flex h-full flex-col">
+              <div class="benefit-card__icon-wrap">
+                <span class="benefit-card__glow" aria-hidden="true"></span>
+                <span class="benefit-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8">
+                    <path d="M3 6h9v9H3z" />
+                    <path d="M12 10h4l3 3v2h-7z" />
+                    <circle cx="7" cy="17.5" r="1.5" />
+                    <circle cx="16.5" cy="17.5" r="1.5" />
+                    <path d="M9.5 17.5h5.5" />
+                  </svg>
+                </span>
+              </div>
+              <h3 class="text-lg font-semibold text-ink-primary">Rapidez y cobertura nacional</h3>
+              <span class="benefit-card__divider" aria-hidden="true"></span>
+              <p class="text-base text-ink-secondary">Compra ágil y despacho a todo Chile.</p>
+              <div class="benefit-card__number">
+                <span class="benefit-card__number-current">01</span><span class="benefit-card__number-total">/03</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="benefit-card--textured benefit-card--texture-full rounded-card bg-[#F3F3F3] p-8">
+            <div class="relative flex h-full flex-col">
+              <div class="benefit-card__icon-wrap">
+                <span class="benefit-card__glow" aria-hidden="true"></span>
+                <span class="benefit-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8">
+                    <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" />
+                    <path d="M9 12l2.2 2.2L15.5 10" />
+                  </svg>
+                </span>
+              </div>
+              <h3 class="text-lg font-semibold text-ink-primary">Calidad y respaldo profesional</h3>
+              <span class="benefit-card__divider" aria-hidden="true"></span>
+              <p class="text-base text-ink-secondary">
+                Productos certificados e indicados por especialistas.
+              </p>
+              <div class="benefit-card__number">
+                <span class="benefit-card__number-current">02</span><span class="benefit-card__number-total">/03</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="benefit-card--textured benefit-card--texture-full rounded-card bg-[#F3F3F3] p-8">
+            <div class="relative flex h-full flex-col">
+              <div class="benefit-card__icon-wrap">
+                <span class="benefit-card__glow" aria-hidden="true"></span>
+                <span class="benefit-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8">
+                    <path d="M9 18h6" />
+                    <path d="M10 21h4" />
+                    <path d="M12 3a6 6 0 0 0-3.5 10.9c.4.3.7.8.7 1.3V16h5.6v-.8c0-.5.3-1 .7-1.3A6 6 0 0 0 12 3z" />
+                  </svg>
+                </span>
+              </div>
+              <h3 class="text-lg font-semibold text-ink-primary">Innovación en soluciones médicas</h3>
+              <span class="benefit-card__divider" aria-hidden="true"></span>
+              <p class="text-base text-ink-secondary">
+                Tecnología aplicada a plantillas y órtesis a medida.
+              </p>
+              <div class="benefit-card__number">
+                <span class="benefit-card__number-current">03</span><span class="benefit-card__number-total">/03</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="marcas" class="bg-surface px-4 pt-[50px] pb-[70px] md:px-5 lg:px-[70px]">
+        <div data-reveal>
+          <h2 class="font-display mb-10 text-[40px] font-semibold text-ink-primary">Marcas con las que trabajamos</h2>
+
+          <div class="brand-marquee relative overflow-hidden">
+            <div class="brand-track flex items-center gap-6">
+              <a href="tienda.html" class="brand-chip brand-chip--nexmed" aria-label="NEXMED">
+                <img src="assets/images/nexmed-logo.png" alt="NEXMED" class="h-[34px] w-auto" />
+              </a>
+              <a href="tienda.html" class="brand-chip">Plantillas</a>
+              <a href="tienda.html" class="brand-chip">Evogen</a>
+              <a href="tienda.html" class="brand-chip">Global Max</a>
+              <a href="tienda.html" class="brand-chip">Reckeweg</a>
+              <a href="tienda.html" class="brand-chip">Bariatric</a>
+              <a href="tienda.html" class="brand-chip">Theodolux</a>
+              <a href="tienda.html" class="brand-chip">Blunding</a>
+
+              <a href="tienda.html" class="brand-chip brand-chip--nexmed" aria-hidden="true" tabindex="-1">
+                <img src="assets/images/nexmed-logo.png" alt="" class="h-[34px] w-auto" />
+              </a>
+              <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1">Plantillas</a>
+              <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1">Evogen</a>
+              <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1">Global Max</a>
+              <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1">Reckeweg</a>
+              <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1">Bariatric</a>
+              <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1">Theodolux</a>
+              <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1">Blunding</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="productos-destacados" class="bg-surface p-[10px]">
+        <div class="relative overflow-hidden rounded-hero bg-surface px-4 py-[100px] md:px-5 lg:px-[70px]">
+          <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+            <img src="assets/images/productos/background-productos.png" alt="" class="h-full w-full object-cover" />
+          </div>
+
+          <div data-reveal class="relative">
+          <div class="mb-10 flex flex-wrap items-center justify-between gap-4">
+            <h2 class="font-display text-[40px] font-semibold text-ink-primary">Productos destacados</h2>
+            <div class="flex items-center gap-4">
+              <a
+                href="tienda.html"
+                class="inline-flex items-center gap-2 whitespace-nowrap rounded-btn bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-brand-purple"
+              >
+                Ver todo el catálogo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4">
+                  <path d="M5 12h14" />
+                  <path d="M13 6l6 6-6 6" />
+                </svg>
+              </a>
+              <div class="flex items-center gap-2">
+                <button type="button" id="products-prev" aria-label="Producto anterior" class="carousel-arrow">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4">
+                    <path d="M15 6l-6 6 6 6" />
+                  </svg>
+                </button>
+                <button type="button" id="products-next" aria-label="Producto siguiente" class="carousel-arrow">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4">
+                    <path d="M9 6l6 6-6 6" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="products-track"
+            data-reveal-group
+            tabindex="0"
+            role="region"
+            aria-label="Carrusel de productos destacados"
+            class="product-carousel"
+          >
+            <div class="product-card">
+              <a href="tienda.html" class="product-card__link">
+                <div class="product-card__image">
+                  <img
+                    src="assets/images/productos/plantilla-ortopedica.png"
+                    alt="Plantilla ortopédica a medida"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                  />
+                  <span class="product-card__tag">Plantillas</span>
+                </div>
+                <div class="product-card__body">
+                  <h3 class="product-card__title">Plantilla ortopédica a medida</h3>
+                  <span class="product-card__price">$00.000</span>
+                </div>
+              </a>
+              <div class="product-card__actions">
+                <a href="tienda.html" class="product-card__cta product-card__cta--secondary">Ver producto</a>
+                <button type="button" class="product-card__cta product-card__cta--primary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="h-4 w-4">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <a href="tienda.html" class="product-card__link">
+                <div class="product-card__image">
+                  <img
+                    src="assets/images/productos/tobillera-compresion.png"
+                    alt="Tobillera de compresión"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                  />
+                  <span class="product-card__tag">Órtesis</span>
+                </div>
+                <div class="product-card__body">
+                  <h3 class="product-card__title">Tobillera de compresión</h3>
+                  <span class="product-card__price">$00.000</span>
+                </div>
+              </a>
+              <div class="product-card__actions">
+                <a href="tienda.html" class="product-card__cta product-card__cta--secondary">Ver producto</a>
+                <button type="button" class="product-card__cta product-card__cta--primary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="h-4 w-4">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <a href="tienda.html" class="product-card__link">
+                <div class="product-card__image">
+                  <img
+                    src="assets/images/productos/producto-homeopatico.png"
+                    alt="Producto homeopático"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                  />
+                  <span class="product-card__tag">Biorreguladora</span>
+                </div>
+                <div class="product-card__body">
+                  <h3 class="product-card__title">Producto homeopático</h3>
+                  <span class="product-card__price">$00.000</span>
+                </div>
+              </a>
+              <div class="product-card__actions">
+                <a href="tienda.html" class="product-card__cta product-card__cta--secondary">Ver producto</a>
+                <button type="button" class="product-card__cta product-card__cta--primary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="h-4 w-4">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <a href="tienda.html" class="product-card__link">
+                <div class="product-card__image">
+                  <img
+                    src="assets/images/productos/suplemento-deportivo.png"
+                    alt="Suplemento deportivo"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                  />
+                  <span class="product-card__tag">Suplementos</span>
+                </div>
+                <div class="product-card__body">
+                  <h3 class="product-card__title">Suplemento deportivo</h3>
+                  <span class="product-card__price">$00.000</span>
+                </div>
+              </a>
+              <div class="product-card__actions">
+                <a href="tienda.html" class="product-card__cta product-card__cta--secondary">Ver producto</a>
+                <button type="button" class="product-card__cta product-card__cta--primary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="h-4 w-4">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <section id="producto-estrella" class="bg-surface p-[10px]">
+        <div data-reveal class="product-star grid gap-[20px] rounded-card bg-[#F3ECFA] p-[20px] lg:grid-cols-[0.892fr_1fr]">
+          <div class="product-star__image-wrap">
+            <div class="product-star__image-inner" data-parallax>
+              <img
+                src="assets/images/Home/producto-estrella.png"
+                alt="Plantillas ortopédicas a medida NEXMED"
+                loading="lazy"
+                onerror="this.style.display='none'"
+              />
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-[50px]">
+            <div class="px-2 pt-[100px]">
+              <h3 class="font-display text-[40px] font-semibold leading-[1.1] text-ink-primary">Producto estrella</h3>
+              <p class="mt-4 max-w-[500px] text-base leading-relaxed text-ink-secondary">
+                Nuestro producto más recomendado por especialistas, pensado para acompañar cada
+                paso de tu día.
+              </p>
+            </div>
+
+            <div class="product-star__card product-star__card--dark">
+              <div class="product-star__card-media">
+                <img
+                  src="assets/images/Home/plantilla-perspectiva-2.png"
+                  alt="Plantilla ortopédica, otra perspectiva"
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                />
+              </div>
+              <div class="product-star__card-text">
+                <h3 class="product-star__card-title">Plantillas ortopédicas<br />a medida</h3>
+                <p class="product-star__card-copy">
+                  Fabricadas a partir de una evaluación de tu pisada y tu actividad. Agenda la
+                  toma de medidas y recíbelas listas para usar.
+                </p>
+                <a href="tienda.html#plantillas" class="product-star__card-cta">Conocer plantillas</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="novedades" class="bg-surface px-4 pt-[100px] pb-[70px] md:px-5 lg:px-[70px]">
+        <div data-reveal>
+          <div class="mb-10 flex flex-wrap items-center justify-between gap-4">
+            <h2 class="font-display text-[40px] font-semibold text-ink-primary">Novedades</h2>
+            <a
+              href="novedades.html"
+              class="inline-flex items-center gap-2 whitespace-nowrap rounded-btn bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-brand-purple"
+            >
+              Ir al blog
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4">
+                <path d="M5 12h14" />
+                <path d="M13 6l6 6-6 6" />
+              </svg>
+            </a>
+          </div>
+
+          <div data-reveal-group class="grid gap-6 sm:grid-cols-3">
+            <a href="novedades.html" class="article-card">
+              <div class="article-card__media">
+                <img
+                  src="assets/images/novedades/plantilla-ortopedica-adecuada.png"
+                  alt="Cómo elegir la plantilla ortopédica adecuada"
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                />
+                <span class="article-card__grain" aria-hidden="true"></span>
+                <span class="article-card__scrim" aria-hidden="true"></span>
+              </div>
+              <span class="article-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="h-4 w-4">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              </span>
+              <h3 class="article-card__title">Cómo elegir la plantilla ortopédica adecuada</h3>
+              <div class="article-card__footer">
+                <span class="article-card__date">Ene 2026</span>
+                <p class="article-card__excerpt">Claves para entender cuándo y por qué usarlas.</p>
+              </div>
+            </a>
+
+            <a href="novedades.html" class="article-card">
+              <div class="article-card__media">
+                <img
+                  src="assets/images/novedades/cuidado-uso-ortesis2.png"
+                  alt="Cuidados y uso correcto de las órtesis"
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                />
+                <span class="article-card__grain" aria-hidden="true"></span>
+                <span class="article-card__scrim" aria-hidden="true"></span>
+              </div>
+              <span class="article-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="h-4 w-4">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              </span>
+              <h3 class="article-card__title">Cuidados y uso correcto de las órtesis</h3>
+              <div class="article-card__footer">
+                <span class="article-card__date">Feb 2026</span>
+                <p class="article-card__excerpt">Recomendaciones generales de uso y mantención.</p>
+              </div>
+            </a>
+
+            <a href="novedades.html" class="article-card">
+              <div class="article-card__media">
+                <img
+                  src="assets/images/novedades/medicina-biorreguladora.png"
+                  alt="Qué es la medicina biorreguladora"
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                />
+                <span class="article-card__grain" aria-hidden="true"></span>
+                <span class="article-card__scrim" aria-hidden="true"></span>
+              </div>
+              <span class="article-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="h-4 w-4">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              </span>
+              <h3 class="article-card__title">Qué es la medicina biorreguladora</h3>
+              <div class="article-card__footer">
+                <span class="article-card__date">Mar 2026</span>
+                <p class="article-card__excerpt">Una introducción a esta línea de productos.</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="site-footer" class="px-4 pt-16 pb-8 md:px-5 lg:px-[70px]">
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <img src="assets/images/Footer/footer-background.png" alt="" class="h-full w-full object-cover" />
+      </div>
+      <div class="footer-grid-pattern" aria-hidden="true"></div>
+      <div data-reveal class="relative grid gap-x-8 gap-y-12 border-b border-border pb-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div>
+          <a href="index.html" class="inline-flex" aria-label="NEXMED, ir al inicio">
+            <img src="assets/images/nexmed-logo.png" alt="NEXMED Soluciones Médicas" class="h-20 w-auto" />
+          </a>
+          <address class="mt-6 text-sm not-italic leading-relaxed text-ink-secondary">
+            Av. Ejemplo 1234, Of. 56<br />
+            Providencia, Santiago
+          </address>
+          <p class="mt-4 text-sm text-ink-secondary">
+            <a href="tel:+56223456789" class="transition-colors duration-300 hover:text-brand-blue">Tel. +56 2 2345 6789</a>
+          </p>
+          <p class="mt-1 text-sm text-ink-secondary">
+            <a href="mailto:contacto@nexmed.cl" class="transition-colors duration-300 hover:text-brand-blue">contacto@nexmed.cl</a>
+          </p>
+          <p class="mt-4 text-sm text-ink-secondary">Lun a Vie · 9:00–18:00</p>
+        </div>
+
+        <nav aria-label="Categorías">
+          <h3 class="footer-heading">Categorías</h3>
+          <ul class="mt-5 flex flex-col gap-3">
+            <li><a href="tienda.html#plantillas" class="footer-link">Plantillas ortopédicas</a></li>
+            <li><a href="tienda.html#ortesis" class="footer-link">Órtesis e insumos</a></li>
+            <li><a href="tienda.html#biorreguladora" class="footer-link">Medicina biorreguladora</a></li>
+            <li><a href="tienda.html#suplementos" class="footer-link">Suplementos</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-label="Accesos rápidos">
+          <h3 class="footer-heading">Accesos rápidos</h3>
+          <ul class="mt-5 flex flex-col gap-3">
+            <li><a href="novedades.html" class="footer-link">Novedades / Noticias</a></li>
+            <li><a href="convenios.html" class="footer-link">Convenios institucionales</a></li>
+            <li><a href="tienda.html#plantillas" class="footer-link">Agendar plantilla</a></li>
+            <li><a href="faq.html" class="footer-link">Preguntas frecuentes</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <h3 class="footer-heading">Síguenos</h3>
+          <div class="mt-5 flex items-center gap-3">
+            <a href="#" aria-label="Facebook" class="footer-social-slot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+              </svg>
+            </a>
+            <a href="#" aria-label="Instagram" class="footer-social-slot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5">
+                <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" class="footer-social-slot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </a>
+          </div>
+
+          <h3 class="footer-heading mt-9">Medios de pago</h3>
+          <div class="mt-5 flex items-center gap-3" aria-hidden="true">
+            <span class="footer-payment-slot"></span>
+            <span class="footer-payment-slot"></span>
+            <span class="footer-payment-slot"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative flex flex-col gap-3 pt-6 text-xs text-ink-secondary sm:flex-row sm:items-center sm:justify-between">
+        <p>© 2026 NEXMED · Desarrollado por Delta Digital</p>
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+          <a href="terminos.html" class="footer-legal-link">Términos</a>
+          <a href="privacidad.html" class="footer-legal-link">Privacidad</a>
+          <a href="despachos.html" class="footer-legal-link">Despachos y devoluciones</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/header.js" defer></script>
+    <script src="assets/js/scroll-reveal.js" defer></script>
+    <script src="assets/js/products-carousel.js" defer></script>
+    <script src="assets/js/parallax.js" defer></script>
+    <script src="assets/js/brand-marquee.js" defer></script>
+  </body>
+</html>
