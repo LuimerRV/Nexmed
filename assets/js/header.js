@@ -43,7 +43,7 @@
       );
     }
 
-    var stateClass = isActive ? "text-brand-blue" : "text-ink-primary hover:text-brand-blue";
+    var stateClass = isActive ? "text-brand-purple" : "text-ink-primary hover:text-brand-blue";
     var underlineClass = isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100";
 
     return (
