@@ -31,7 +31,7 @@
       >
         <a
           href="index.html"
-          class="relative block h-8 w-auto shrink-0 justify-self-start transition-opacity duration-300 hover:opacity-80 lg:h-15"
+          class="relative block h-[37px] w-auto shrink-0 justify-self-start transition-opacity duration-300 hover:opacity-80 lg:h-[69px]"
           aria-label="NEXMED, ir al inicio"
         >
           <img
@@ -194,7 +194,7 @@
       <section id="beneficios" class="bg-surface px-4 py-[80px] md:px-5 lg:px-[70px] lg:py-[70px]">
         <div data-reveal-group class="grid gap-6 sm:grid-cols-3">
           <div class="benefit-card--textured benefit-card--texture-full rounded-card bg-[#F3F3F3] p-8">
-            <div class="relative flex h-full flex-col">
+            <div class="relative flex h-full items-center gap-6">
               <div class="benefit-card__icon-wrap">
                 <span class="benefit-card__glow" aria-hidden="true"></span>
                 <span class="benefit-card__icon" aria-hidden="true">
@@ -203,9 +203,10 @@
                   </svg>
                 </span>
               </div>
-              <h3 class="benefit-card__title">Rapidez y cobertura nacional</h3>
-              <span class="benefit-card__divider" aria-hidden="true"></span>
-              <p class="benefit-card__description">Compra ágil y despacho a todo Chile.</p>
+              <div class="benefit-card__content">
+                <h3 class="benefit-card__title">Rapidez y cobertura<br />nacional</h3>
+                <p class="benefit-card__description">Compra ágil y despacho a todo Chile.</p>
+              </div>
               <div class="benefit-card__number">
                 <span class="benefit-card__number-current">01</span>
                 <span class="benefit-card__number-sweep" aria-hidden="true">01</span>
@@ -214,7 +215,7 @@
           </div>
 
           <div class="benefit-card--textured benefit-card--texture-full rounded-card bg-[#F3F3F3] p-8">
-            <div class="relative flex h-full flex-col">
+            <div class="relative flex h-full items-center gap-6">
               <div class="benefit-card__icon-wrap">
                 <span class="benefit-card__glow" aria-hidden="true"></span>
                 <span class="benefit-card__icon" aria-hidden="true">
@@ -223,11 +224,12 @@
                   </svg>
                 </span>
               </div>
-              <h3 class="benefit-card__title">Calidad y respaldo profesional</h3>
-              <span class="benefit-card__divider" aria-hidden="true"></span>
-              <p class="benefit-card__description">
-                Productos certificados e indicados por especialistas.
-              </p>
+              <div class="benefit-card__content">
+                <h3 class="benefit-card__title">Calidad y respaldo profesional</h3>
+                <p class="benefit-card__description">
+                  Productos certificados e indicados por especialistas.
+                </p>
+              </div>
               <div class="benefit-card__number">
                 <span class="benefit-card__number-current">02</span>
                 <span class="benefit-card__number-sweep" aria-hidden="true">02</span>
@@ -236,7 +238,7 @@
           </div>
 
           <div class="benefit-card--textured benefit-card--texture-full rounded-card bg-[#F3F3F3] p-8">
-            <div class="relative flex h-full flex-col">
+            <div class="relative flex h-full items-center gap-6">
               <div class="benefit-card__icon-wrap">
                 <span class="benefit-card__glow" aria-hidden="true"></span>
                 <span class="benefit-card__icon" aria-hidden="true">
@@ -245,11 +247,12 @@
                   </svg>
                 </span>
               </div>
-              <h3 class="benefit-card__title">Innovación en soluciones médicas</h3>
-              <span class="benefit-card__divider" aria-hidden="true"></span>
-              <p class="benefit-card__description">
-                Tecnología aplicada a plantillas y órtesis a medida.
-              </p>
+              <div class="benefit-card__content">
+                <h3 class="benefit-card__title">Innovación en soluciones médicas</h3>
+                <p class="benefit-card__description">
+                  Tecnología aplicada a plantillas y órtesis a medida.
+                </p>
+              </div>
               <div class="benefit-card__number">
                 <span class="benefit-card__number-current">03</span>
                 <span class="benefit-card__number-sweep" aria-hidden="true">03</span>
@@ -462,11 +465,11 @@
                 <svg viewBox="0 0 531 530" fill="none" class="h-9 w-9 shrink-0 text-brand-blue" aria-hidden="true">
                   <path d="M278.822 18.7303C282.991 21.173 286.434 24.6825 288.797 28.8977C312.043 71.0445 331.178 115.359 345.936 161.172C347.975 167.117 351.798 172.289 356.883 175.982C361.969 179.676 368.069 181.711 374.353 181.811C414.1 182.816 453.718 186.762 492.882 193.616C514.41 197.394 522.466 221.893 507.188 236.837C477.556 265.824 445.902 292.669 412.465 317.169C402.242 324.641 398.076 337.446 401.965 349.168C414.278 386.174 423.687 424.085 430.104 462.554C431.382 470.332 432.558 478.156 433.632 486.026C436.409 506.998 413.937 521.803 394.465 511.803C355.79 491.988 318.813 469.022 283.908 443.138C278.44 439.147 271.845 436.996 265.075 436.996C258.305 436.996 251.71 439.147 246.241 443.138C211.329 469.012 174.353 491.977 135.685 511.803C116.185 521.803 93.7401 506.998 96.5179 486.026C102.768 439.517 113.371 393.696 128.185 349.168C132.074 337.446 127.879 324.641 117.685 317.169C88.2118 295.525 60.1027 272.083 33.5174 246.976C29.9618 243.643 26.4433 240.263 22.9618 236.837C7.68389 221.893 15.7673 197.394 37.2675 193.616C76.437 186.801 116.052 182.856 155.796 181.811C168.907 181.45 180.352 173.144 184.213 161.172C195.423 126.364 209.163 92.4228 225.324 59.6193C230.454 49.2491 235.797 39.0086 241.352 28.8977C243.715 24.6825 247.158 21.173 251.328 18.7303C255.497 16.2876 260.242 15 265.075 15C269.907 15 274.652 16.2876 278.822 18.7303Z" stroke="currentColor" stroke-width="44.17" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-                <h3 class="font-display text-[40px] font-bold uppercase leading-[1.1] text-ink-primary">Producto estrella</h3>
+                <h3 class="font-display text-[40px] font-bold uppercase leading-[1.1] text-ink-primary">Plantillas a la Medida</h3>
               </div>
               <p class="mt-4 max-w-[500px] text-base leading-relaxed text-ink-secondary">
-                Nuestro producto más recomendado por especialistas, pensado para acompañar cada
-                paso de tu día.
+                Plantillas diseñadas a partir de la forma y necesidad de cada pie, para mayor
+                comodidad y soporte en el día a día.
               </p>
             </div>
 
@@ -480,7 +483,7 @@
                 />
               </div>
               <div class="product-star__card-text">
-                <h3 class="product-star__card-title">Plantillas ortopédicas a medida</h3>
+                <h3 class="product-star__card-title">Adaptadas a tu pisada</h3>
                 <p class="product-star__card-copy">
                   Fabricadas a partir de una evaluación de tu pisada y tu actividad. Agenda la
                   toma de medidas y recíbelas listas para usar.
@@ -635,10 +638,14 @@
           </div>
 
           <h3 class="footer-heading mt-9">Medios de pago</h3>
-          <div class="mt-5 flex items-center gap-3" aria-hidden="true">
-            <span class="footer-payment-slot"></span>
-            <span class="footer-payment-slot"></span>
-            <span class="footer-payment-slot"></span>
+          <div class="mt-5 flex items-center gap-3">
+            <span class="footer-payment-slot">
+              <img src="assets/images/Footer/Pagos/WebPay.png" alt="WebPay" />
+            </span>
+            <span class="footer-payment-slot">
+              <img src="assets/images/Footer/Pagos/transbank.png" alt="Transbank" />
+            </span>
+            <span class="footer-payment-slot" aria-hidden="true"></span>
           </div>
         </div>
       </div>
