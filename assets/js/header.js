@@ -166,32 +166,14 @@
     });
   }
 
-  var SEARCHABLE_PRODUCTS = [
-    {
-      name: "Plantilla ortopédica a medida",
-      price: "$00.000",
-      image: "assets/images/productos/plantilla-ortopedica.png",
-      href: "tienda.html",
-    },
-    {
-      name: "Tobillera de compresión",
-      price: "$00.000",
-      image: "assets/images/productos/tobillera-compresion.png",
-      href: "tienda.html",
-    },
-    {
-      name: "Producto homeopático",
-      price: "$00.000",
-      image: "assets/images/productos/producto-homeopatico.png",
-      href: "tienda.html",
-    },
-    {
-      name: "Suplemento deportivo",
-      price: "$00.000",
-      image: "assets/images/productos/suplemento-deportivo.png",
-      href: "tienda.html",
-    },
-  ];
+  var SEARCHABLE_PRODUCTS = (window.NEXMED_PRODUCTS || []).map(function (product) {
+    return {
+      name: product.nombre,
+      price: "$" + product.precio.toLocaleString("es-CL"),
+      image: product.imagen || "assets/images/productos/plantilla-ortopedica.png",
+      href: "ficha-producto.html?codigo=" + encodeURIComponent(product.codigo),
+    };
+  });
 
   function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, function (ch) {
