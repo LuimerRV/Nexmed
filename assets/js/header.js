@@ -7,7 +7,6 @@
     { key: "tienda", label: "Tienda", href: "tienda.html" },
     { key: "novedades", label: "Novedades", href: "novedades.html" },
     { key: "contacto", label: "Contacto", href: "contacto.html" },
-    { key: "convenios", label: "Convenios", href: "convenios.html", comingSoon: true },
   ];
 
   function renderDesktopNavItem(item, isActive) {
