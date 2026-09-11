@@ -75,6 +75,9 @@
       if (categories.indexOf(p.categoriaLabel) === -1) categories.push(p.categoriaLabel);
       if (brands.indexOf(p.marca) === -1) brands.push(p.marca);
     });
+    (window.NEXMED_BRANDS_SIN_PRODUCTOS || []).forEach(function (b) {
+      if (brands.indexOf(b) === -1) brands.push(b);
+    });
 
     categoryFilters.innerHTML = categories
       .map(function (c) {
@@ -99,6 +102,13 @@
         );
       })
       .join("");
+
+    var requestedMarca = new URLSearchParams(window.location.search).get("marca");
+    if (requestedMarca && brands.indexOf(requestedMarca) !== -1) {
+      Array.prototype.forEach.call(brandFilters.querySelectorAll("input"), function (input) {
+        input.checked = input.value === requestedMarca;
+      });
+    }
 
     if (totalCount) totalCount.textContent = products.length;
 

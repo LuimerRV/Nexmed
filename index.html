@@ -151,8 +151,16 @@
         <div
           class="hero-bg relative min-h-[calc(100vh-20px)] overflow-hidden rounded-hero bg-ink-primary"
           role="img"
-          aria-label="Persona ajustando una órtesis de rodilla"
+          aria-label="Productos NEXMED: suplementos, órtesis y plantillas a medida"
         >
+          <div id="hero-slides" class="hero-slides absolute inset-0" aria-hidden="true">
+            <div class="hero-slide" style="background-image: url('assets/images/Home/Slider/Banner-1-R14-QUIETA-ESTRES.webp')"></div>
+            <div class="hero-slide" style="background-image: url('assets/images/Home/Slider/Banner-2-TOBILLERA-THEODULOZ.webp')"></div>
+            <div class="hero-slide" style="background-image: url('assets/images/Home/Slider/Banner-3-Creatina.webp')"></div>
+            <div class="hero-slide" style="background-image: url('assets/images/Home/Slider/Banner-4-Omerga-3.webp')"></div>
+            <div class="hero-slide" style="background-image: url('assets/images/Home/Slider/Banner-5-Plantillas-a-Medida.webp')"></div>
+          </div>
+
           <div class="hero-scrim absolute inset-0" aria-hidden="true"></div>
 
           <div class="relative z-10 flex min-h-[calc(100vh-20px)] items-center px-6 pt-16 pb-16 sm:px-10 lg:px-[60px] lg:pt-[188px]">
@@ -167,7 +175,7 @@
               >
                 Órtesis, plantillas e insumos con respaldo clínico
               </h1>
-              <p class="hero-description mt-6 text-base leading-relaxed text-white/80">
+              <p class="hero-description mt-6 text-base leading-relaxed text-white">
                 En NEXMED reunimos plantillas a medida, órtesis, insumos y suplementos del área
                 salud en un solo lugar. Compra en pocos pasos, con despacho a todo Chile y
                 respaldo profesional.
@@ -187,6 +195,14 @@
                 </a>
               </div>
             </div>
+          </div>
+
+          <div id="hero-bullets" class="hero-bullets" role="tablist" aria-label="Seleccionar imagen destacada">
+            <button type="button" class="hero-bullet" role="tab" aria-label="Imagen 1" aria-selected="true"></button>
+            <button type="button" class="hero-bullet" role="tab" aria-label="Imagen 2" aria-selected="false"></button>
+            <button type="button" class="hero-bullet" role="tab" aria-label="Imagen 3" aria-selected="false"></button>
+            <button type="button" class="hero-bullet" role="tab" aria-label="Imagen 4" aria-selected="false"></button>
+            <button type="button" class="hero-bullet" role="tab" aria-label="Imagen 5" aria-selected="false"></button>
           </div>
         </div>
       </section>
@@ -225,7 +241,7 @@
                 </span>
               </div>
               <div class="benefit-card__content">
-                <h3 class="benefit-card__title">Calidad y respaldo profesional</h3>
+                <h3 class="benefit-card__title">Calidad y respaldo</h3>
                 <p class="benefit-card__description">
                   Productos certificados e indicados por especialistas.
                 </p>
@@ -268,29 +284,33 @@
 
           <div class="brand-marquee relative overflow-hidden">
             <div class="brand-track flex items-center gap-6">
-              <a href="tienda.html" class="brand-chip brand-chip--nexmed" aria-label="NEXMED">
+              <a href="tienda.html?marca=NEXMED" class="brand-chip brand-chip--nexmed" aria-label="NEXMED">
                 <img src="assets/images/marcas/9.png" alt="NEXMED" />
               </a>
-              <a href="tienda.html" class="brand-chip"><img src="assets/images/marcas/1.png" alt="Evogen" /></a>
-              <a href="tienda.html" class="brand-chip"><img src="assets/images/marcas/2.png" alt="Theoduloz" /></a>
+              <a href="tienda.html?marca=Evogen" class="brand-chip"><img src="assets/images/marcas/1.png" alt="Evogen" /></a>
+              <a href="tienda.html?marca=Theoduloz" class="brand-chip"><img src="assets/images/marcas/2.png" alt="Theoduloz" /></a>
               <a href="tienda.html" class="brand-chip"><img src="assets/images/marcas/3.png" alt="Blunding Kids" /></a>
-              <a href="tienda.html" class="brand-chip"><img src="assets/images/marcas/4.png" alt="Blunding" /></a>
-              <a href="tienda.html" class="brand-chip"><img src="assets/images/marcas/5.png" alt="Dr. Reckeweg &amp; Co" /></a>
+              <a href="tienda.html?marca=Blunding" class="brand-chip"><img src="assets/images/marcas/4.png" alt="Blunding" /></a>
+              <a href="tienda.html?marca=Dr.%20Reckeweg" class="brand-chip"><img src="assets/images/marcas/5.png" alt="Dr. Reckeweg &amp; Co" /></a>
               <a href="tienda.html" class="brand-chip"><img src="assets/images/marcas/6.png" alt="Mega Med" /></a>
               <a href="tienda.html" class="brand-chip"><img src="assets/images/marcas/7.png" alt="Planty" /></a>
               <a href="tienda.html" class="brand-chip"><img src="assets/images/marcas/8.png" alt="UroFusión" /></a>
+              <a href="tienda.html" class="brand-chip"><img src="assets/images/marcas/10.png" alt="DenTek" /></a>
+              <a href="tienda.html" class="brand-chip"><img src="assets/images/marcas/11.png" alt="GloMed" /></a>
 
-              <a href="tienda.html" class="brand-chip brand-chip--nexmed" aria-hidden="true" tabindex="-1">
+              <a href="tienda.html?marca=NEXMED" class="brand-chip brand-chip--nexmed" aria-hidden="true" tabindex="-1">
                 <img src="assets/images/marcas/9.png" alt="" />
               </a>
-              <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/1.png" alt="" /></a>
-              <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/2.png" alt="" /></a>
+              <a href="tienda.html?marca=Evogen" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/1.png" alt="" /></a>
+              <a href="tienda.html?marca=Theoduloz" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/2.png" alt="" /></a>
               <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/3.png" alt="" /></a>
-              <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/4.png" alt="" /></a>
-              <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/5.png" alt="" /></a>
+              <a href="tienda.html?marca=Blunding" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/4.png" alt="" /></a>
+              <a href="tienda.html?marca=Dr.%20Reckeweg" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/5.png" alt="" /></a>
               <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/6.png" alt="" /></a>
               <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/7.png" alt="" /></a>
               <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/8.png" alt="" /></a>
+              <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/10.png" alt="" /></a>
+              <a href="tienda.html" class="brand-chip" aria-hidden="true" tabindex="-1"><img src="assets/images/marcas/11.png" alt="" /></a>
             </div>
           </div>
         </div>
@@ -339,6 +359,68 @@
             aria-label="Carrusel de productos destacados"
             class="product-carousel"
           >
+            <div class="product-card">
+              <a href="ficha-producto.html?codigo=A-BACONFORT" class="product-card__link">
+                <div class="product-card__image">
+                  <img
+                    src="assets/images/productos/baston-access-comfort.webp"
+                    alt="Bastón Access Comfort Black Grip"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                  />
+                </div>
+                <div class="product-card__body">
+                  <div class="product-card__pills">
+                    <span class="product-card__pill">Traumatología</span>
+                    <span class="product-card__pill">Fisiatría</span>
+                    <span class="product-card__pill">Kinesiología</span>
+                  </div>
+                  <h3 class="product-card__title">Bastón Access Comfort Black Grip</h3>
+                  <span class="product-card__price">$29.990</span>
+                </div>
+              </a>
+              <div class="product-card__actions">
+                <a href="ficha-producto.html?codigo=A-BACONFORT" class="product-card__cta product-card__cta--secondary">Ver producto</a>
+                <button type="button" class="product-card__cta product-card__cta--primary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="h-4 w-4">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <a href="ficha-producto.html?codigo=CC-703" class="product-card__link">
+                <div class="product-card__image">
+                  <img
+                    src="assets/images/productos/corset-hiperextension-jewett.webp"
+                    alt="Corset de Hiperextensión Jewett"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                  />
+                </div>
+                <div class="product-card__body">
+                  <div class="product-card__pills">
+                    <span class="product-card__pill">Traumatología</span>
+                    <span class="product-card__pill">Fisiatría</span>
+                    <span class="product-card__pill">Kinesiología</span>
+                  </div>
+                  <h3 class="product-card__title">Corset de Hiperextensión Jewett</h3>
+                  <span class="product-card__price">$270.000</span>
+                </div>
+              </a>
+              <div class="product-card__actions">
+                <a href="ficha-producto.html?codigo=CC-703" class="product-card__cta product-card__cta--secondary">Ver producto</a>
+                <button type="button" class="product-card__cta product-card__cta--primary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="h-4 w-4">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                  Agregar al carrito
+                </button>
+              </div>
+            </div>
+
             <div class="product-card">
               <a href="ficha-producto.html?codigo=OP2026-EM" class="product-card__link">
                 <div class="product-card__image">
@@ -524,7 +606,7 @@
           </div>
 
           <div data-reveal-group class="grid gap-6 sm:grid-cols-3">
-            <a href="novedades.html" class="article-card">
+            <a href="articulo.html?slug=plantilla-ortopedica-adecuada" class="article-card">
               <div class="article-card__media">
                 <img
                   src="assets/images/novedades/plantilla-ortopedica-adecuada.png"
@@ -547,7 +629,7 @@
               </div>
             </a>
 
-            <a href="novedades.html" class="article-card">
+            <a href="articulo.html?slug=cuidado-uso-ortesis" class="article-card">
               <div class="article-card__media">
                 <img
                   src="assets/images/novedades/cuidado-uso-ortesis2.png"
@@ -570,7 +652,7 @@
               </div>
             </a>
 
-            <a href="novedades.html" class="article-card">
+            <a href="articulo.html?slug=medicina-biorreguladora" class="article-card">
               <div class="article-card__media">
                 <img
                   src="assets/images/novedades/medicina-biorreguladora.png"
@@ -690,6 +772,7 @@
 
     <script src="assets/js/products-data.js" defer></script>
     <script src="assets/js/header.js" defer></script>
+    <script src="assets/js/hero-slider.js" defer></script>
     <script src="assets/js/scroll-reveal.js" defer></script>
     <script src="assets/js/products-carousel.js" defer></script>
     <script src="assets/js/parallax.js" defer></script>

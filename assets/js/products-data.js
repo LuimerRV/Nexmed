@@ -175,7 +175,31 @@
       dosisHabitual: null,
       material: null,
     },
+    {
+      codigo: "A-BACONFORT",
+      nombre: "Bastón Access Comfort Black Grip",
+      categoria: "TRAUMATOLOGIA/FISIATRIA/KINESIOLOGIA",
+      categoriaLabel: "Traumatología, Fisiatría y Kinesiología",
+      subcategoria: "Ayudas técnicas",
+      marca: "Feldec",
+      precio: 29990,
+      imagen: "assets/images/productos/baston-access-comfort.webp",
+      tienePlaceholder: false,
+      indicacion: null,
+      presentacion: null,
+      dosisHabitual: null,
+      material: null,
+    },
   ];
+
+  /*
+   * Marcas que aparecen en el carrusel "Marcas con las que trabajamos" del
+   * Home pero que todavía no tienen productos cargados en este catálogo
+   * de muestra. Se listan aparte para que el filtro de marcas de Tienda
+   * también las muestre (la marca existe; el catálogo de esa marca, no
+   * todavía) sin inventar productos que no existen.
+   */
+  window.NEXMED_BRANDS_SIN_PRODUCTOS = ["Blunding Kids", "Mega Med", "Planty", "UroFusión", "DenTek", "GloMed"];
 
   /*
    * Algunas categorías son en realidad una enumeración de especialidades
