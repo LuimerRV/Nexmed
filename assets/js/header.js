@@ -5,6 +5,7 @@
     { key: "inicio", label: "Inicio", href: "index.html" },
     { key: "nosotros", label: "Nosotros", href: "nosotros.html" },
     { key: "tienda", label: "Tienda", href: "tienda.html" },
+    { key: "plantillas", label: "Plantillas", href: "landing-plantillas.html" },
     { key: "novedades", label: "Novedades", href: "novedades.html" },
     { key: "profesionales", label: "Profesionales", href: "profesionales.html" },
     { key: "contacto", label: "Contacto", href: "contacto.html" },
@@ -15,7 +16,6 @@
       return (
         '<span class="header-nav-comingsoon inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium">' +
         item.label +
-        '<span class="header-nav-comingsoon-tag rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide">Próximamente</span>' +
         "</span>"
       );
     }
@@ -38,7 +38,6 @@
       return (
         '<span class="inline-flex items-center gap-2 text-base text-ink-secondary/70">' +
         item.label +
-        '<span class="rounded-full border border-border px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide text-ink-secondary">Próximamente</span>' +
         "</span>"
       );
     }
