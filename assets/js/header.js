@@ -6,7 +6,6 @@
     { key: "nosotros", label: "Nosotros", href: "nosotros.html" },
     { key: "tienda", label: "Tienda", href: "tienda.html" },
     { key: "plantillas", label: "Plantillas", href: "landing-plantillas.html" },
-    { key: "novedades", label: "Novedades", href: "novedades.html" },
     { key: "profesionales", label: "Profesionales", href: "profesionales.html" },
     { key: "contacto", label: "Contacto", href: "contacto.html" },
   ];
