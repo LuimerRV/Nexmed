@@ -72,6 +72,7 @@
 
           <a
             href="carrito.html"
+            id="header-cart-button"
             aria-label="Carrito, vacío"
             class="header-icon-pill relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
           >
@@ -80,6 +81,7 @@
               <circle cx="9" cy="20" r="1.4" />
               <circle cx="17" cy="20" r="1.4" />
             </svg>
+            <span id="header-cart-badge" class="header-cart-badge" hidden>0</span>
           </a>
 
           <button
@@ -147,12 +149,36 @@
       </div>
     </div>
 
+    <div id="cart-drawer-overlay" hidden></div>
+    <aside id="cart-drawer" class="cart-drawer" hidden aria-hidden="true" aria-label="Carrito de compras">
+      <div class="cart-drawer__header">
+        <h2 class="cart-drawer__title">Carrito de compras</h2>
+        <button type="button" id="cart-drawer-close" class="cart-drawer__close" aria-label="Cerrar carrito">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+      <div id="cart-drawer-body" class="cart-drawer__body"></div>
+      <div id="cart-drawer-footer" class="cart-drawer__footer" hidden>
+        <div class="cart-drawer__subtotal-row">
+          <span>Subtotal</span>
+          <span id="cart-drawer-subtotal"></span>
+        </div>
+        <p class="cart-drawer__shipping-note">Envío: se calcula en el checkout según tu dirección.</p>
+        <div class="cart-drawer__actions">
+          <a href="carrito.html" class="cart-drawer__view-cart">Ver carrito</a>
+          <a href="checkout.html" class="cart-drawer__checkout">Iniciar compra</a>
+        </div>
+      </div>
+    </aside>
+
     <main id="main-content">
       <section class="bg-surface px-4 pt-[150px] pb-[100px] md:px-5 lg:px-[70px]">
         <div class="mx-auto max-w-[960px]">
           <nav class="shop-breadcrumb" aria-label="Ruta de navegación">
             <a href="index.html">Inicio</a> ·
-            <a href="landing-plantillas.html">Plantillas a la medida</a> ·
+            <a href="plantillas.html">Plantillas a la medida</a> ·
             <span id="agendar-step-label">Configuración de la plantilla</span>
           </nav>
 
@@ -182,6 +208,27 @@
           <!-- Paso 1 -->
           <div class="step-panel" data-step-panel="1">
             <div class="step-panel__main">
+              <div class="step-field">
+                <label for="agendar-nombre">Nombre y apellido</label>
+                <input id="agendar-nombre" type="text" placeholder="Nombre y apellido" class="contact-input" />
+              </div>
+
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div class="step-field">
+                  <label for="agendar-telefono">Teléfono</label>
+                  <input id="agendar-telefono" type="tel" placeholder="+56 9 1234 5678" class="contact-input" />
+                </div>
+                <div class="step-field">
+                  <label for="agendar-correo">Correo electrónico</label>
+                  <input id="agendar-correo" type="email" placeholder="tu@correo.cl" class="contact-input" />
+                </div>
+              </div>
+
+              <div class="step-field">
+                <label for="agendar-direccion">Dirección</label>
+                <input id="agendar-direccion" type="text" placeholder="Calle, número, comuna" class="contact-input" />
+              </div>
+
               <div class="step-field">
                 <label>Tipo de uso</label>
                 <div class="option-pill-row" data-field="tipo-uso">
@@ -400,7 +447,7 @@
             <li><a href="index.html" class="footer-link">Inicio</a></li>
             <li><a href="nosotros.html" class="footer-link">Nosotros</a></li>
             <li><a href="tienda.html" class="footer-link">Tienda</a></li>
-            <li><a href="landing-plantillas.html" class="footer-link">Plantillas</a></li>
+            <li><a href="plantillas.html" class="footer-link">Plantillas</a></li>
             <li><a href="profesionales.html" class="footer-link">Profesionales</a></li>
             <li><a href="contacto.html" class="footer-link">Contacto</a></li>
           </ul>
@@ -457,6 +504,7 @@
     </a>
 
     <script src="assets/js/products-data.js" defer></script>
+    <script src="assets/js/cart.js" defer></script>
     <script src="assets/js/header.js" defer></script>
     <script src="assets/js/scroll-reveal.js" defer></script>
     <script src="assets/js/agendar-plantilla.js" defer></script>

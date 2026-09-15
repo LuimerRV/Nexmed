@@ -2,10 +2,10 @@
   "use strict";
 
   var STEP_LABELS = {
-    1: "5.1 Configuración de la plantilla",
-    2: "5.2 Carga de la receta médica",
-    3: "5.3 Agendamiento y pago anticipado",
-    4: "5.4 Confirmación",
+    1: "Configuración de la plantilla",
+    2: "Carga de la receta médica",
+    3: "Agendamiento y pago anticipado",
+    4: "Confirmación",
   };
   var WEEKDAYS = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
 

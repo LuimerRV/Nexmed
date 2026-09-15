@@ -71,6 +71,7 @@
 
           <a
             href="carrito.html"
+            id="header-cart-button"
             aria-label="Carrito, vacío"
             class="header-icon-pill relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
           >
@@ -79,6 +80,7 @@
               <circle cx="9" cy="20" r="1.4" />
               <circle cx="17" cy="20" r="1.4" />
             </svg>
+            <span id="header-cart-badge" class="header-cart-badge" hidden>0</span>
           </a>
 
           <button
@@ -146,6 +148,30 @@
       </div>
     </div>
 
+    <div id="cart-drawer-overlay" hidden></div>
+    <aside id="cart-drawer" class="cart-drawer" hidden aria-hidden="true" aria-label="Carrito de compras">
+      <div class="cart-drawer__header">
+        <h2 class="cart-drawer__title">Carrito de compras</h2>
+        <button type="button" id="cart-drawer-close" class="cart-drawer__close" aria-label="Cerrar carrito">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+      <div id="cart-drawer-body" class="cart-drawer__body"></div>
+      <div id="cart-drawer-footer" class="cart-drawer__footer" hidden>
+        <div class="cart-drawer__subtotal-row">
+          <span>Subtotal</span>
+          <span id="cart-drawer-subtotal"></span>
+        </div>
+        <p class="cart-drawer__shipping-note">Envío: se calcula en el checkout según tu dirección.</p>
+        <div class="cart-drawer__actions">
+          <a href="carrito.html" class="cart-drawer__view-cart">Ver carrito</a>
+          <a href="checkout.html" class="cart-drawer__checkout">Iniciar compra</a>
+        </div>
+      </div>
+    </aside>
+
     <main id="main-content">
       <section id="hero" class="p-[10px]">
         <div
@@ -188,7 +214,7 @@
                   Comprar ahora
                 </a>
                 <a
-                  href="tienda.html#plantillas"
+                  href="plantillas.html"
                   class="inline-flex items-center justify-center rounded-btn border border-white/40 px-7 py-3.5 text-base font-semibold text-white transition-colors duration-300 hover:border-white hover:bg-white/10"
                 >
                   Ver plantillas
@@ -582,7 +608,7 @@
                   Fabricadas a partir de una evaluación de tu pisada y tu actividad. Agenda la
                   toma de medidas y recíbelas listas para usar.
                 </p>
-                <a href="landing-plantillas.html" class="product-star__card-cta">Conocer plantillas</a>
+                <a href="plantillas.html" class="product-star__card-cta">Conocer plantillas</a>
               </div>
             </div>
           </div>
@@ -597,7 +623,7 @@
               href="profesionales.html#profesionales-evidencia"
               class="inline-flex items-center gap-2 whitespace-nowrap rounded-btn bg-brand-purple px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-300 hover:bg-brand-blue"
             >
-              Ver artículos
+              Evidencia y estudios
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4">
                 <path d="M5 12h14" />
                 <path d="M13 6l6 6-6 6" />
@@ -717,7 +743,7 @@
             <li><a href="index.html" class="footer-link">Inicio</a></li>
             <li><a href="nosotros.html" class="footer-link">Nosotros</a></li>
             <li><a href="tienda.html" class="footer-link">Tienda</a></li>
-            <li><a href="landing-plantillas.html" class="footer-link">Plantillas</a></li>
+            <li><a href="plantillas.html" class="footer-link">Plantillas</a></li>
             <li><a href="profesionales.html" class="footer-link">Profesionales</a></li>
             <li><a href="contacto.html" class="footer-link">Contacto</a></li>
           </ul>
@@ -774,6 +800,7 @@
     </a>
 
     <script src="assets/js/products-data.js" defer></script>
+    <script src="assets/js/cart.js" defer></script>
     <script src="assets/js/header.js" defer></script>
     <script src="assets/js/hero-slider.js" defer></script>
     <script src="assets/js/scroll-reveal.js" defer></script>

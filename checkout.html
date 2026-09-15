@@ -3,11 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Política de Privacidad — NEXMED</title>
-    <meta
-      name="description"
-      content="Política de privacidad de NEXMED Soluciones Médicas: qué información recopilamos y cómo la protegemos."
-    />
+    <title>Checkout — NEXMED</title>
+    <meta name="description" content="Confirma tus datos de envío, método de pago y finaliza tu pedido en NEXMED." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,12 +13,7 @@
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
-  <!--
-    Texto de relleno (placeholder) a solicitud del cliente, mientras el
-    departamento legal entrega el texto definitivo. No usar como contenido
-    final sin revisión.
-  -->
-  <body data-page="privacidad">
+  <body data-page="checkout">
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-btn focus:bg-brand-purple focus:px-4 focus:py-2 focus:text-white"
@@ -171,103 +163,159 @@
     </aside>
 
     <main id="main-content">
-      <section class="shop-banner pt-[135px] pb-[50px] lg:pt-[160px]">
-        <h1 class="shop-banner__title">Política de Privacidad</h1>
-        <nav class="shop-banner__breadcrumb" aria-label="Ruta de navegación">
-          <a href="index.html">Inicio</a>
-          <span class="shop-banner__breadcrumb-sep" aria-hidden="true">›</span>
-          <span class="shop-banner__breadcrumb-current">Política de Privacidad</span>
-        </nav>
-      </section>
+      <section class="bg-surface px-4 pt-[150px] pb-[100px] md:px-5 lg:px-[70px]">
+        <div class="mx-auto max-w-[960px]">
+          <nav class="shop-breadcrumb" aria-label="Ruta de navegación">
+            <a href="index.html">Inicio</a> ·
+            <a href="carrito.html">Carrito</a> ·
+            <span id="checkout-step-label">Datos de envío</span>
+          </nav>
 
-      <section class="bg-surface px-4 pt-[70px] pb-[100px] md:px-5 lg:px-[70px]">
-        <div class="legal-content">
-          <p class="legal-content__updated">Última actualización: por confirmar</p>
-          <p class="legal-content__intro">
-            En NEXMED valoramos tu privacidad. Esta Política de Privacidad describe qué
-            información recopilamos cuando navegas o compras en nuestro sitio, cómo la usamos y
-            qué derechos tienes sobre ella.
-          </p>
+          <h1 class="mt-4 font-display text-[28px] font-semibold text-ink-primary">Checkout</h1>
 
-          <div class="legal-section">
-            <h2 class="legal-section__heading">1. Información que Recopilamos</h2>
-            <p class="legal-section__text">
-              Recopilamos información que nos entregas directamente al crear una cuenta,
-              realizar una compra o completar un formulario de contacto, tales como nombre,
-              correo electrónico, teléfono y dirección de despacho.
-            </p>
-            <ul class="legal-section__list">
-              <li>Datos de identificación y contacto</li>
-              <li>Dirección de despacho y facturación</li>
-              <li>Historial de compras y preferencias</li>
-              <li>Información técnica de navegación (cookies, dispositivo, IP)</li>
-            </ul>
+          <div id="checkout-empty" class="mt-16 flex flex-col items-center gap-5 text-center" hidden>
+            <p class="text-base text-ink-secondary">Tu carrito está vacío, así que no hay nada que pagar todavía.</p>
+            <a href="tienda.html" class="pdp-actions__primary" style="display: inline-flex; flex: none; min-width: 0; width: auto">Ir a la tienda</a>
           </div>
 
-          <div class="legal-section">
-            <h2 class="legal-section__heading">2. Uso de la Información</h2>
-            <p class="legal-section__text">
-              Utilizamos tu información para procesar pedidos, gestionar el despacho, responder
-              consultas, mejorar nuestros servicios y, cuando corresponda, enviarte
-              comunicaciones sobre productos y novedades que puedan ser de tu interés.
-            </p>
-          </div>
+          <div id="checkout-flow" hidden>
+            <div id="checkout-stepper" class="stepper mt-8">
+              <div class="stepper-step" data-step="1">
+                <span class="stepper-step__circle">1</span>
+                <p class="stepper-step__label">Datos de envío</p>
+              </div>
+              <div class="stepper-step" data-step="2">
+                <span class="stepper-step__circle">2</span>
+                <p class="stepper-step__label">Método de pago</p>
+              </div>
+              <div class="stepper-step" data-step="3">
+                <span class="stepper-step__circle">3</span>
+                <p class="stepper-step__label">Confirmación</p>
+              </div>
+            </div>
 
-          <div class="legal-section">
-            <h2 class="legal-section__heading">3. Protección y Almacenamiento de Datos</h2>
-            <p class="legal-section__text">
-              Implementamos medidas de seguridad razonables para proteger tu información
-              personal contra accesos no autorizados, pérdida o mal uso. Los datos de pago son
-              procesados directamente por nuestros proveedores de pago externos, quienes cuentan
-              con sus propios estándares de seguridad.
-            </p>
-          </div>
+            <!-- Paso 1: Datos de envío -->
+            <div class="step-panel" data-step-panel="1">
+              <div class="step-panel__main">
+                <div class="step-field">
+                  <label for="checkout-nombre">Nombre y apellido</label>
+                  <input id="checkout-nombre" type="text" placeholder="Nombre y apellido" class="contact-input" />
+                </div>
 
-          <div class="legal-section">
-            <h2 class="legal-section__heading">4. Uso de Cookies</h2>
-            <p class="legal-section__text">
-              Este sitio utiliza cookies para mejorar tu experiencia de navegación, recordar tus
-              preferencias y analizar el uso del sitio. Puedes configurar tu navegador para
-              rechazar cookies, aunque esto podría afectar el funcionamiento de algunas
-              funcionalidades.
-            </p>
-          </div>
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div class="step-field">
+                    <label for="checkout-telefono">Teléfono</label>
+                    <input id="checkout-telefono" type="tel" placeholder="+56 9 1234 5678" class="contact-input" />
+                  </div>
+                  <div class="step-field">
+                    <label for="checkout-correo">Correo electrónico</label>
+                    <input id="checkout-correo" type="email" placeholder="tu@correo.cl" class="contact-input" />
+                  </div>
+                </div>
 
-          <div class="legal-section">
-            <h2 class="legal-section__heading">5. Derechos del Usuario</h2>
-            <p class="legal-section__text">
-              Puedes solicitar en cualquier momento el acceso, rectificación, actualización o
-              eliminación de tus datos personales, escribiendo a nuestro correo de contacto.
-              Responderemos tu solicitud dentro de un plazo razonable.
-            </p>
-          </div>
+                <div class="step-field">
+                  <label for="checkout-direccion">Dirección</label>
+                  <input id="checkout-direccion" type="text" placeholder="Calle, número, comuna" class="contact-input" />
+                </div>
 
-          <div class="legal-section">
-            <h2 class="legal-section__heading">6. Compartición con Terceros</h2>
-            <p class="legal-section__text">
-              No vendemos ni compartimos tu información personal con terceros para fines
-              comerciales ajenos a NEXMED. Podemos compartir datos estrictamente necesarios con
-              proveedores logísticos y de pago para completar tu pedido.
-            </p>
-          </div>
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div class="step-field">
+                    <label for="checkout-comuna">Comuna</label>
+                    <input id="checkout-comuna" type="text" placeholder="Comuna" class="contact-input" />
+                  </div>
+                  <div class="step-field">
+                    <label for="checkout-region">Región</label>
+                    <select id="checkout-region" class="contact-select">
+                      <option value="">Seleccionar</option>
+                      <option>Arica y Parinacota</option>
+                      <option>Tarapacá</option>
+                      <option>Antofagasta</option>
+                      <option>Atacama</option>
+                      <option>Coquimbo</option>
+                      <option>Valparaíso</option>
+                      <option>Metropolitana de Santiago</option>
+                      <option>Libertador General Bernardo O'Higgins</option>
+                      <option>Maule</option>
+                      <option>Ñuble</option>
+                      <option>Biobío</option>
+                      <option>La Araucanía</option>
+                      <option>Los Ríos</option>
+                      <option>Los Lagos</option>
+                      <option>Aysén</option>
+                      <option>Magallanes y de la Antártica Chilena</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
 
-          <div class="legal-section">
-            <h2 class="legal-section__heading">7. Cambios en esta Política</h2>
-            <p class="legal-section__text">
-              Esta Política de Privacidad puede actualizarse periódicamente para reflejar
-              cambios en nuestras prácticas o en la normativa vigente. Te recomendamos
-              revisarla con regularidad.
-            </p>
-          </div>
+              <aside class="step-summary">
+                <p class="step-summary__heading">Resumen del pedido</p>
+                <div id="checkout-summary-list-1" class="step-summary__list"></div>
+                <div class="step-summary__total">
+                  <span>Total</span>
+                  <span id="checkout-total-1"></span>
+                </div>
+                <p class="step-summary__note">Envío: se calcula según tu dirección.</p>
+              </aside>
+            </div>
 
-          <div class="legal-section">
-            <h2 class="legal-section__heading">8. Contacto</h2>
-            <p class="legal-section__text">
-              Si tienes dudas sobre el tratamiento de tus datos personales, escríbenos a
-              <a href="mailto:infocontacto@nexmed.cl" class="transition-colors duration-300 hover:text-brand-blue">infocontacto@nexmed.cl</a>
-              o comunícate al
-              <a href="tel:+56223456789" class="transition-colors duration-300 hover:text-brand-blue">+56 2 2345 6789</a>.
-            </p>
+            <!-- Paso 2: Método de pago -->
+            <div class="step-panel" data-step-panel="2" hidden>
+              <div class="step-panel__main">
+                <div class="step-field">
+                  <label>Método de pago</label>
+                  <div class="option-pill-row" data-field="metodo-pago">
+                    <button type="button" class="option-pill is-selected" data-value="WebPay">WebPay</button>
+                    <button type="button" class="option-pill" data-value="Transferencia bancaria">Transferencia bancaria</button>
+                  </div>
+                </div>
+              </div>
+
+              <aside class="step-summary">
+                <p class="step-summary__heading">Resumen del pedido</p>
+                <div id="checkout-summary-list-2" class="step-summary__list"></div>
+                <div class="step-summary__total">
+                  <span>Total</span>
+                  <span id="checkout-total-2"></span>
+                </div>
+                <button type="button" id="checkout-confirm-btn" class="agendar-actions__next mt-5 w-full justify-center">
+                  Confirmar pedido
+                </button>
+                <p class="step-summary__note">Pago seguro · WebPay / tarjetas</p>
+              </aside>
+            </div>
+
+            <!-- Paso 3: Confirmación -->
+            <div data-step-panel="3" hidden>
+              <div class="confirmation">
+                <span class="confirmation__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </span>
+                <h2 class="confirmation__title">¡Pedido confirmado!</h2>
+                <p class="confirmation__order">N.º de pedido <strong>#NX-00000</strong> · te enviamos el detalle a tu correo</p>
+
+                <div class="confirmation__steps">
+                  <p class="confirmation__steps-heading">Próximos pasos</p>
+                  <ul class="confirmation__steps-list">
+                    <li>Preparación de tu pedido</li>
+                    <li>Despacho según tu dirección</li>
+                    <li>Notificación de seguimiento por correo</li>
+                  </ul>
+                </div>
+
+                <div class="confirmation__actions">
+                  <a href="tienda.html" class="pdp-actions__primary">Seguir comprando</a>
+                  <a href="index.html" class="pdp-actions__secondary">Volver al inicio</a>
+                </div>
+              </div>
+            </div>
+
+            <div id="checkout-actions" class="agendar-actions">
+              <button type="button" id="checkout-btn-back" class="agendar-actions__back">← Volver</button>
+              <button type="button" id="checkout-btn-next" class="agendar-actions__next">Continuar →</button>
+            </div>
           </div>
         </div>
       </section>
@@ -370,8 +418,6 @@
     <script src="assets/js/products-data.js" defer></script>
     <script src="assets/js/cart.js" defer></script>
     <script src="assets/js/header.js" defer></script>
-    <script src="assets/js/scroll-reveal.js" defer></script>
-    <script src="assets/js/parallax.js" defer></script>
-    <script src="assets/js/brand-marquee.js" defer></script>
+    <script src="assets/js/checkout.js" defer></script>
   </body>
 </html>

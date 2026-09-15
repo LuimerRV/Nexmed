@@ -5,7 +5,7 @@
     { key: "inicio", label: "Inicio", href: "index.html" },
     { key: "nosotros", label: "Nosotros", href: "nosotros.html" },
     { key: "tienda", label: "Tienda", href: "tienda.html" },
-    { key: "plantillas", label: "Plantillas", href: "landing-plantillas.html" },
+    { key: "plantillas", label: "Plantillas", href: "plantillas.html" },
     { key: "profesionales", label: "Profesionales", href: "profesionales.html" },
     { key: "contacto", label: "Contacto", href: "contacto.html" },
   ];

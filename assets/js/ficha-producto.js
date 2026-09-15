@@ -184,6 +184,23 @@
       });
     }
 
+    var addToCartBtn = document.querySelector(".pdp-actions .pdp-actions__primary");
+    var buyNowBtn = document.querySelector(".pdp-actions .pdp-actions__secondary");
+    function currentQty() {
+      return qtyInput ? Math.max(1, parseInt(qtyInput.value || "1", 10)) : 1;
+    }
+    if (addToCartBtn) {
+      addToCartBtn.addEventListener("click", function () {
+        if (window.NEXMED_CART) window.NEXMED_CART.addItem(product.codigo, currentQty());
+      });
+    }
+    if (buyNowBtn) {
+      buyNowBtn.addEventListener("click", function () {
+        if (window.NEXMED_CART) window.NEXMED_CART.addItem(product.codigo, currentQty());
+        window.location.href = "checkout.html";
+      });
+    }
+
     var sameCategory = products.filter(function (p) {
       return p.categoriaLabel === product.categoriaLabel && p.codigo !== product.codigo;
     });
@@ -215,6 +232,14 @@
         }, 0);
         bundleTotalEl.textContent = money(total);
         bundleSection.hidden = false;
+        var bundleCta = bundleSection.querySelector(".pdp-bundle__cta");
+        if (bundleCta) {
+          bundleCta.addEventListener("click", function () {
+            bundleProducts.forEach(function (p) {
+              if (window.NEXMED_CART) window.NEXMED_CART.addItem(p.codigo, 1);
+            });
+          });
+        }
       } else {
         bundleSection.hidden = true;
       }
