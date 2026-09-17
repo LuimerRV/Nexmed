@@ -1,5 +1,5 @@
 /*
- * Catálogo de los 12 productos de muestra (de 66 en el archivo fuente del
+ * Catálogo de los 14 productos de muestra (de 66 en el archivo fuente del
  * cliente), uno representativo por categoría real disponible. Precios y
  * nombres provienen del archivo "PRECIOS-PRODUCTOS-CATEGORIAS-MARCAS.xlsx"
  * del cliente. Los campos indicacion/presentacion/dosisHabitual/material
@@ -49,6 +49,21 @@
       marca: "Blunding",
       precio: 270000,
       imagen: "assets/images/productos/corset-hiperextension-jewett.webp",
+      tienePlaceholder: false,
+      indicacion: null,
+      presentacion: null,
+      dosisHabitual: null,
+      material: null,
+    },
+    {
+      codigo: "CC-700",
+      nombre: "Corset de Hiperextensión Jewett",
+      categoria: "TRAUMATOLOGIA/FISIATRIA/KINESIOLOGIA",
+      categoriaLabel: "Traumatología, Fisiatría y Kinesiología",
+      subcategoria: "Columna / Tórax",
+      marca: "Blunding",
+      precio: 248000,
+      imagen: "assets/images/productos/corset-blunding.webp",
       tienePlaceholder: false,
       indicacion: null,
       presentacion: null,
@@ -190,6 +205,25 @@
       dosisHabitual: null,
       material: null,
     },
+    {
+      // Precio de relleno: el cliente aún no entregó el precio real de este
+      // producto (indicó explícitamente "colocar de relleno"). Código
+      // interno generado por nosotros ante la ausencia de un SKU del
+      // cliente; reemplazar ambos apenas se confirmen los datos reales.
+      codigo: "SR-SPORT22",
+      nombre: "Silla de Ruedas Eléctrica Adulto Sport 22",
+      categoria: "TRAUMATOLOGIA/FISIATRIA/KINESIOLOGIA",
+      categoriaLabel: "Traumatología, Fisiatría y Kinesiología",
+      subcategoria: "Ayudas técnicas",
+      marca: "GloMed",
+      precio: 600000,
+      imagen: "assets/images/productos/silla-de-ruedas-electrica-adulto-sport-22.webp",
+      tienePlaceholder: false,
+      indicacion: null,
+      presentacion: null,
+      dosisHabitual: null,
+      material: null,
+    },
   ];
 
   /*
@@ -199,7 +233,7 @@
    * también las muestre (la marca existe; el catálogo de esa marca, no
    * todavía) sin inventar productos que no existen.
    */
-  window.NEXMED_BRANDS_SIN_PRODUCTOS = ["Blunding Kids", "Mega Med", "Planty", "UroFusión", "DenTek", "GloMed"];
+  window.NEXMED_BRANDS_SIN_PRODUCTOS = ["Blunding Kids", "Mega Med", "Planty", "UroFusión", "DenTek"];
 
   /*
    * Algunas categorías son en realidad una enumeración de especialidades
