@@ -193,8 +193,8 @@
     {
       codigo: "A-BACONFORT",
       nombre: "Bastón Access Comfort Black Grip",
-      categoria: "TRAUMATOLOGIA/FISIATRIA/KINESIOLOGIA",
-      categoriaLabel: "Traumatología, Fisiatría y Kinesiología",
+      categoria: "AYUDAS TECNICAS",
+      categoriaLabel: "Ayudas Técnicas",
       subcategoria: "Ayudas técnicas",
       marca: "Feldec",
       precio: 29990,
@@ -212,8 +212,8 @@
       // cliente; reemplazar ambos apenas se confirmen los datos reales.
       codigo: "SR-SPORT22",
       nombre: "Silla de Ruedas Eléctrica Adulto Sport 22",
-      categoria: "TRAUMATOLOGIA/FISIATRIA/KINESIOLOGIA",
-      categoriaLabel: "Traumatología, Fisiatría y Kinesiología",
+      categoria: "AYUDAS TECNICAS",
+      categoriaLabel: "Ayudas Técnicas",
       subcategoria: "Ayudas técnicas",
       marca: "GloMed",
       precio: 600000,
@@ -234,6 +234,14 @@
    * todavía) sin inventar productos que no existen.
    */
   window.NEXMED_BRANDS_SIN_PRODUCTOS = ["Blunding Kids", "Mega Med", "Planty", "UroFusión", "DenTek"];
+
+  /*
+   * Categorías del negocio que el cliente quiere disponibles en el filtro
+   * de Tienda aunque este catálogo de muestra todavía no tenga productos
+   * cargados en ellas (p. ej. Salud Dental, asociada a la marca DenTek).
+   * Se listan aparte para no inventar productos que no existen.
+   */
+  window.NEXMED_CATEGORIES_SIN_PRODUCTOS = ["Salud Dental"];
 
   /*
    * Algunas categorías son en realidad una enumeración de especialidades

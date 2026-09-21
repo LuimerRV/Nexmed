@@ -78,6 +78,9 @@
     (window.NEXMED_BRANDS_SIN_PRODUCTOS || []).forEach(function (b) {
       if (brands.indexOf(b) === -1) brands.push(b);
     });
+    (window.NEXMED_CATEGORIES_SIN_PRODUCTOS || []).forEach(function (c) {
+      if (categories.indexOf(c) === -1) categories.push(c);
+    });
 
     categoryFilters.innerHTML = categories
       .map(function (c) {
@@ -107,6 +110,13 @@
     if (requestedMarca && brands.indexOf(requestedMarca) !== -1) {
       Array.prototype.forEach.call(brandFilters.querySelectorAll("input"), function (input) {
         input.checked = input.value === requestedMarca;
+      });
+    }
+
+    var requestedCategoria = new URLSearchParams(window.location.search).get("categoria");
+    if (requestedCategoria && categories.indexOf(requestedCategoria) !== -1) {
+      Array.prototype.forEach.call(categoryFilters.querySelectorAll("input"), function (input) {
+        input.checked = input.value === requestedCategoria;
       });
     }
 
