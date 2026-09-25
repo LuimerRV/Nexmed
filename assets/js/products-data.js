@@ -289,6 +289,25 @@
   window.NEXMED_CATEGORIES_SIN_PRODUCTOS = ["Salud Dental"];
 
   /*
+   * Descripción breve (1 línea en desktop, 2 en móvil) bajo el título de cada categoría en Tienda.
+   * ⚠ TEXTO PROVISORIO (Lorem Ipsum, pedido del cliente): reemplazar cada
+   * valor por el texto aprobado de su categoría. Una categoría sin entrada
+   * simplemente no muestra descripción.
+   */
+  var LOREM_CATEGORIA =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer feugiat sed mi in placerat.";
+  window.NEXMED_CATEGORY_DESCRIPTIONS = {
+    "Traumatología, Fisiatría y Kinesiología": LOREM_CATEGORIA,
+    "Medicina Bariátrica": LOREM_CATEGORIA,
+    "Medicina Bioreguladora": LOREM_CATEGORIA,
+    "Enfermería": LOREM_CATEGORIA,
+    "Suplementos": LOREM_CATEGORIA,
+    "Ayudas Técnicas": LOREM_CATEGORIA,
+    "Urología": LOREM_CATEGORIA,
+    "Salud Dental": LOREM_CATEGORIA,
+  };
+
+  /*
    * Algunas categorías son en realidad una enumeración de especialidades
    * ("Traumatología, Fisiatría y Kinesiología") y deben mostrarse como
    * píldoras separadas, no como una sola píldora larga. Categorías simples

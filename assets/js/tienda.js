@@ -190,6 +190,8 @@
         if (sortMode === "precio-desc") items.sort(function (a, b) { return priceOf(b, -Infinity) - priceOf(a, -Infinity); });
         visibleCount += items.length;
         html += '<h2 class="shop-category-heading">' + cat + "</h2>";
+        var description = (window.NEXMED_CATEGORY_DESCRIPTIONS || {})[cat];
+        if (description) html += '<p class="shop-category-description">' + description + "</p>";
         html += '<div class="shop-grid">' + items.map(productCardHTML).join("") + "</div>";
       });
 
