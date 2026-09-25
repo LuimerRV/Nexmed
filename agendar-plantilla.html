@@ -17,12 +17,14 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <!--
-    Flujo de agendamiento sin backend real (como el resto de los formularios
-    del sitio): la carga de receta, el calendario, el "pago" y la
-    confirmación son presentacionales. El precio de "Plantilla a medida"
-    ($70.000) es el real de OP2026-EM; "Toma de medidas" queda como
-    "Por confirmar" porque no existe una tarifa real definida para ese
-    servicio (Docs/PROJECT_RULES.md: no inventar información).
+    Flujo de compra de plantilla a medida, sin backend real (como el resto de
+    los formularios del sitio): datos → receta → resumen y pago →
+    confirmación. La carga de receta, el "pago" y los correos son
+    presentacionales. Sin calendario: la entrega la coordina NEXMED
+    directamente con el paciente; el agendamiento con Reservo se habilitará
+    más adelante y solo para evaluaciones ("Próximamente").
+    Precio: $70.000 IVA incluido (real de OP2026-EM); el desglose neto/IVA
+    se calcula en agendar-plantilla.js.
   -->
   <body data-page="plantillas">
     <a
@@ -35,19 +37,19 @@
     <div id="header-sentinel" class="h-px" aria-hidden="true"></div>
     <header id="site-header" class="fixed inset-x-0 top-0 z-50">
       <div
-        class="header-row relative grid w-full grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 pt-[50px] pb-6 md:px-5 lg:px-[70px]"
+        class="header-row relative grid w-full grid-cols-[1fr_auto] items-center gap-4 px-4 py-4 md:px-5 md:py-5 lg:grid-cols-[1fr_auto_1fr] lg:px-[70px] lg:pt-[50px] lg:pb-6"
       >
         <a
           href="index.html"
-          class="relative block h-[37px] w-auto shrink-0 justify-self-start transition-opacity duration-300 hover:opacity-80 lg:h-[69px]"
+          class="relative block h-[42px] w-auto md:h-[48px] shrink-0 justify-self-start transition-opacity duration-300 hover:opacity-80 lg:h-[69px]"
           aria-label="NEXMED, ir al inicio"
         >
           <img
-            src="assets/images/nexmed-logo.png"
+            src="assets/images/nexmed-logo.webp"
             alt="NEXMED Soluciones Médicas"
             width="3508"
             height="1430"
-            class="block h-[37px] w-auto lg:h-[69px]"
+            class="block h-[42px] w-auto md:h-[48px] lg:h-[69px]"
           />
         </a>
 
@@ -55,7 +57,7 @@
           <ul id="primary-nav-list" class="header-nav-pill flex items-center gap-1 rounded-full p-1.5"></ul>
         </nav>
 
-        <div class="flex items-center justify-self-end gap-3">
+        <div class="flex items-center justify-self-end gap-2 md:gap-3">
           <button
             type="button"
             id="search-toggle-button"
@@ -89,6 +91,7 @@
             id="mobile-menu-button"
             aria-expanded="false"
             aria-controls="mobile-menu"
+            aria-haspopup="dialog"
             aria-label="Abrir menú"
             class="header-icon-pill flex h-11 w-11 shrink-0 items-center justify-center rounded-full lg:hidden"
           >
@@ -97,23 +100,7 @@
               <path d="M4 12h16" />
               <path d="M4 17h16" />
             </svg>
-            <svg id="icon-close" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M6 6l12 12" />
-              <path d="M18 6L6 18" />
-            </svg>
           </button>
-        </div>
-
-        <div
-          id="mobile-menu"
-          role="region"
-          aria-label="Menú de navegación"
-          hidden
-          class="absolute inset-x-0 top-full border-t border-border bg-surface p-6 shadow-soft lg:hidden"
-        >
-          <nav aria-label="Navegación principal">
-            <ul id="mobile-nav-list" class="flex flex-col gap-5"></ul>
-          </nav>
         </div>
       </div>
     </header>
@@ -174,7 +161,7 @@
     </aside>
 
     <main id="main-content">
-      <section class="bg-surface px-4 pt-[150px] pb-[100px] md:px-5 lg:px-[70px]">
+      <section class="bg-surface px-4 pt-[116px] md:pt-[130px] lg:pt-[150px] pb-[100px] md:px-5 lg:px-[70px]">
         <div class="mx-auto max-w-[960px]">
           <nav class="shop-breadcrumb" aria-label="Ruta de navegación">
             <a href="index.html">Inicio</a> ·
@@ -182,7 +169,7 @@
             <span id="agendar-step-label">Configuración de la plantilla</span>
           </nav>
 
-          <h1 class="mt-4 font-display text-[28px] font-semibold text-ink-primary">
+          <h1 class="mt-4 font-display text-[24px] font-semibold text-ink-primary lg:text-[28px]">
             Agenda tu plantilla a medida
           </h1>
 
@@ -197,7 +184,7 @@
             </div>
             <div class="stepper-step" data-step="3">
               <span class="stepper-step__circle">3</span>
-              <p class="stepper-step__label">Agenda y prepago</p>
+              <p class="stepper-step__label">Resumen y pago</p>
             </div>
             <div class="stepper-step" data-step="4">
               <span class="stepper-step__circle">4</span>
@@ -233,8 +220,17 @@
                 <label>Tipo de uso</label>
                 <div class="option-pill-row" data-field="tipo-uso">
                   <button type="button" class="option-pill is-selected" data-value="Deportivo">Deportivo</button>
-                  <button type="button" class="option-pill" data-value="Diario">Diario</button>
                   <button type="button" class="option-pill" data-value="Terapéutico">Terapéutico</button>
+                </div>
+              </div>
+
+              <div class="step-field">
+                <label>Color de plantilla</label>
+                <div class="option-pill-row" data-field="color">
+                  <button type="button" class="option-pill is-selected" data-value="Azul">Azul</button>
+                  <button type="button" class="option-pill" data-value="Negro">Negro</button>
+                  <button type="button" class="option-pill" data-value="Beige">Beige</button>
+                  <button type="button" class="option-pill" data-value="Gris">Gris</button>
                 </div>
               </div>
 
@@ -277,7 +273,7 @@
               <p class="step-summary__heading">Resumen</p>
               <div class="step-summary__media">
                 <img
-                  src="assets/images/productos/plantilla-ortopedica.png"
+                  src="assets/images/productos/plantilla-ortopedica.webp"
                   alt="Plantillas a la medida"
                   loading="lazy"
                   onerror="this.style.display='none'"
@@ -285,6 +281,7 @@
               </div>
               <div class="step-summary__list">
                 <p><strong>Tipo de uso:</strong> <span id="summary-tipo">Deportivo</span></p>
+                <p><strong>Color:</strong> <span id="summary-color">Azul</span></p>
                 <p><strong>Talla:</strong> <span id="summary-talla">—</span></p>
                 <p><strong>Pie:</strong> <span id="summary-pie">Ambos</span></p>
               </div>
@@ -316,86 +313,112 @@
               </div>
 
               <p id="receta-warning" hidden class="text-sm text-[#d92d20]">
-                Adjunta tu receta o agenda una evaluación para continuar.
+                Adjunta tu receta para continuar. Si no la tienes, escríbenos por WhatsApp y te derivamos.
               </p>
             </div>
 
             <aside class="step-summary">
               <p class="step-summary__heading">¿No tienes receta?</p>
               <p class="mt-2 text-sm text-ink-secondary">
-                Podemos agendar una evaluación profesional antes de fabricar tu plantilla.
+                Escríbenos y te derivamos con un médico o traumatólogo para obtenerla.
               </p>
-              <button
-                type="button"
-                id="agendar-evaluacion-btn"
-                class="pdp-actions__secondary mt-4 w-full"
+              <a
+                href="https://wa.me/56223456789?text=Hola%20NEXMED%2C%20quiero%20una%20plantilla%20a%20medida%20pero%20no%20tengo%20receta%20m%C3%A9dica.%20%C2%BFMe%20pueden%20derivar%20con%20un%20m%C3%A9dico%20o%20traumat%C3%B3logo%3F"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="agendar-whatsapp mt-4"
               >
-                Agendar evaluación
-              </button>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-5 w-5">
+                  <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.34-.5.05-.97.23-3.28-.68-2.78-1.1-4.54-3.95-4.68-4.13-.13-.18-1.1-1.47-1.1-2.8 0-1.33.7-1.99.95-2.26.24-.27.53-.34.71-.34l.51.01c.16 0 .38-.06.6.46.23.54.77 1.87.84 2 .07.14.11.3.02.48-.09.18-.13.29-.27.45l-.4.47c-.13.13-.27.28-.12.55.16.27.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.17 1.34.27.13.43.11.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.23.6-.14.25.09 1.57.74 1.84.88.27.13.45.2.52.31.07.11.07.66-.17 1.33Z" />
+                </svg>
+                Contactar por WhatsApp
+                <span class="sr-only">(se abre en una pestaña nueva)</span>
+              </a>
+
+              <div class="agendar-evaluacion">
+                <div class="flex items-center justify-between gap-3">
+                  <p class="text-sm font-semibold text-ink-primary">Evaluación profesional</p>
+                  <span class="agendar-soon">Próximamente</span>
+                </div>
+                <p class="mt-1 text-sm text-ink-secondary">
+                  Podemos agendar una evaluación profesional antes de fabricar tu plantilla.
+                </p>
+                <button type="button" class="pdp-actions__secondary mt-3 w-full" disabled aria-disabled="true">
+                  Agendar evaluación
+                </button>
+              </div>
             </aside>
           </div>
 
-          <!-- Paso 3 -->
+          <!-- Paso 3: resumen y pago -->
           <div class="step-panel" data-step-panel="3" hidden>
             <div class="step-panel__main">
-              <div class="step-field">
-                <label>Elige día para la toma de medidas / retiro</label>
-                <div class="plantilla-calendar">
-                  <div id="calendar-days" class="plantilla-calendar__days"></div>
-                </div>
+              <div class="review-block">
+                <p class="review-block__title">Tus datos</p>
+                <dl class="review-list">
+                  <div><dt>Nombre</dt><dd data-review="nombre">—</dd></div>
+                  <div><dt>Teléfono</dt><dd data-review="telefono">—</dd></div>
+                  <div><dt>Correo</dt><dd data-review="correo">—</dd></div>
+                  <div><dt>Dirección</dt><dd data-review="direccion">—</dd></div>
+                </dl>
               </div>
-
-              <div class="step-field">
-                <label>Horario</label>
-                <div class="option-pill-row" data-field="horario">
-                  <button type="button" class="option-pill is-selected" data-value="09:30">09:30</button>
-                  <button type="button" class="option-pill" data-value="11:00">11:00</button>
-                  <button type="button" class="option-pill" data-value="12:30">12:30</button>
-                  <button type="button" class="option-pill" data-value="16:00">16:00</button>
-                </div>
+              <div class="review-block">
+                <p class="review-block__title">Tu plantilla</p>
+                <dl class="review-list">
+                  <div><dt>Tipo de uso</dt><dd data-review="tipoUso">—</dd></div>
+                  <div><dt>Color</dt><dd data-review="color">—</dd></div>
+                  <div><dt>Talla</dt><dd data-review="talla">—</dd></div>
+                  <div><dt>Pie</dt><dd data-review="pie">—</dd></div>
+                  <div><dt>Observaciones</dt><dd data-review="observaciones">—</dd></div>
+                </dl>
               </div>
+              <div class="review-block">
+                <p class="review-block__title">Receta médica</p>
+                <p class="review-file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4"><path d="M20 6L9 17l-5-5" /></svg> <span data-review="receta">—</span></p>
+              </div>
+              <button type="button" class="review-edit" data-goto="1">Editar datos</button>
             </div>
 
             <aside class="step-summary">
               <p class="step-summary__heading">Resumen de pago</p>
-              <div class="mt-4">
-                <div class="step-summary__row"><span>Plantilla a medida</span><span>$70.000</span></div>
-                <div class="step-summary__row"><span>Toma de medidas</span><span>Por confirmar</span></div>
-              </div>
-              <div class="step-summary__total"><span>Total</span><span>$70.000</span></div>
+              <div class="mt-4" data-price-breakdown></div>
               <button
                 type="button"
                 id="pagar-btn"
                 class="agendar-actions__next mt-5 w-full justify-center"
               >
-                Pagar ahora (prepago)
+                Pagar con WebPay
               </button>
               <p class="step-summary__note">Pago seguro · WebPay / tarjetas</p>
             </aside>
           </div>
 
-          <!-- Paso 4 -->
+          <!-- Paso 4: confirmación -->
           <div data-step-panel="4" hidden>
             <div class="confirmation">
               <span class="confirmation__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8">
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8"><path d="M20 6L9 17l-5-5" /></svg>
               </span>
               <h2 class="confirmation__title">¡Solicitud recibida!</h2>
-              <p class="confirmation__order">N.º de pedido <strong>#NX-00000</strong> · te enviamos el detalle a tu correo</p>
+              <p class="confirmation__order">
+                N.º de pedido <strong>#NX-00000</strong> · enviamos la confirmación a tu correo y al equipo NEXMED
+              </p>
+
+              <div class="confirmation__receipt">
+                <p class="confirmation__steps-heading">Detalle del pago</p>
+                <div class="mt-3" data-price-breakdown></div>
+              </div>
 
               <div class="confirmation__steps">
                 <p class="confirmation__steps-heading">Próximos pasos</p>
                 <ul class="confirmation__steps-list">
-                  <li>Confirmación de tu cita de medidas</li>
-                  <li>Fabricación de la plantilla</li>
-                  <li>Despacho / retiro</li>
+                  <li>NEXMED revisa tu receta</li>
+                  <li>Fabricación de tu plantilla</li>
+                  <li>Te contactamos para coordinar la entrega</li>
                 </ul>
               </div>
 
               <div class="confirmation__actions">
-                <a href="#" class="pdp-actions__primary">Ver mi pedido</a>
                 <a href="index.html" class="pdp-actions__secondary">Volver al inicio</a>
               </div>
             </div>
@@ -411,12 +434,12 @@
 
     <footer id="site-footer" class="px-4 pt-16 pb-8 md:px-5 lg:px-[70px]">
       <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <img src="assets/images/Footer/footer-background.png" alt="" class="h-full w-full object-cover" />
+        <img src="assets/images/Footer/footer-background.webp" alt="" class="h-full w-full object-cover" />
       </div>
-      <div data-reveal class="relative grid gap-x-8 gap-y-12 border-b border-border pb-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div data-reveal class="footer-grid relative grid grid-cols-2 gap-x-6 gap-y-10 border-b border-border pb-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-x-8 lg:gap-y-12">
         <div>
           <a href="index.html" class="inline-flex" aria-label="NEXMED, ir al inicio">
-            <img src="assets/images/nexmed-logo.png" alt="NEXMED Soluciones Médicas" class="h-20 w-auto" />
+            <img src="assets/images/nexmed-logo.webp" alt="NEXMED Soluciones Médicas" class="h-20 w-auto" />
           </a>
           <address class="mt-6 text-[15px] not-italic leading-relaxed text-ink-secondary">
             Antonio Bellet 193, Oficina 1210<br />
@@ -481,7 +504,7 @@
           </div>
 
           <h3 class="footer-heading mt-9">Medios de pago</h3>
-          <div class="mt-5 flex items-center gap-3">
+          <div class="mt-5 flex flex-wrap items-center gap-3">
             <span class="footer-payment-slot">
               <img src="assets/images/Footer/Pagos/WebPay.png" alt="WebPay" />
             </span>

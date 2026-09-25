@@ -27,19 +27,19 @@
     <div id="header-sentinel" class="h-px" aria-hidden="true"></div>
     <header id="site-header" class="fixed inset-x-0 top-0 z-50">
       <div
-        class="header-row relative grid w-full grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 pt-[50px] pb-6 md:px-5 lg:px-[70px]"
+        class="header-row relative grid w-full grid-cols-[1fr_auto] items-center gap-4 px-4 py-4 md:px-5 md:py-5 lg:grid-cols-[1fr_auto_1fr] lg:px-[70px] lg:pt-[50px] lg:pb-6"
       >
         <a
           href="index.html"
-          class="relative block h-[37px] w-auto shrink-0 justify-self-start transition-opacity duration-300 hover:opacity-80 lg:h-[69px]"
+          class="relative block h-[42px] w-auto md:h-[48px] shrink-0 justify-self-start transition-opacity duration-300 hover:opacity-80 lg:h-[69px]"
           aria-label="NEXMED, ir al inicio"
         >
           <img
-            src="assets/images/nexmed-logo.png"
+            src="assets/images/nexmed-logo.webp"
             alt="NEXMED Soluciones Médicas"
             width="3508"
             height="1430"
-            class="block h-[37px] w-auto lg:h-[69px]"
+            class="block h-[42px] w-auto md:h-[48px] lg:h-[69px]"
           />
         </a>
 
@@ -47,7 +47,7 @@
           <ul id="primary-nav-list" class="header-nav-pill flex items-center gap-1 rounded-full p-1.5"></ul>
         </nav>
 
-        <div class="flex items-center justify-self-end gap-3">
+        <div class="flex items-center justify-self-end gap-2 md:gap-3">
           <button
             type="button"
             id="search-toggle-button"
@@ -81,6 +81,7 @@
             id="mobile-menu-button"
             aria-expanded="false"
             aria-controls="mobile-menu"
+            aria-haspopup="dialog"
             aria-label="Abrir menú"
             class="header-icon-pill flex h-11 w-11 shrink-0 items-center justify-center rounded-full lg:hidden"
           >
@@ -89,23 +90,7 @@
               <path d="M4 12h16" />
               <path d="M4 17h16" />
             </svg>
-            <svg id="icon-close" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M6 6l12 12" />
-              <path d="M18 6L6 18" />
-            </svg>
           </button>
-        </div>
-
-        <div
-          id="mobile-menu"
-          role="region"
-          aria-label="Menú de navegación"
-          hidden
-          class="absolute inset-x-0 top-full border-t border-border bg-surface p-6 shadow-soft lg:hidden"
-        >
-          <nav aria-label="Navegación principal">
-            <ul id="mobile-nav-list" class="flex flex-col gap-5"></ul>
-          </nav>
         </div>
       </div>
     </header>
@@ -166,10 +151,10 @@
     </aside>
 
     <main id="main-content">
-      <section id="contacto-formulario" class="bg-surface p-[10px] pt-[150px]">
+      <section id="contacto-formulario" class="bg-surface p-[10px] pt-[86px] md:pt-[98px] lg:pt-[150px]">
         <div class="relative overflow-hidden rounded-hero bg-surface p-[30px]">
         <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-          <img src="assets/images/productos/background-productos.png" alt="" class="h-full w-full object-cover" />
+          <img src="assets/images/productos/background-productos.webp" alt="" class="h-full w-full object-cover" />
         </div>
         <div class="relative grid gap-10 lg:grid-cols-2 lg:items-center">
           <div class="px-2 py-6 lg:px-8">
@@ -204,7 +189,7 @@
             <form class="mt-6 flex flex-col gap-4" onsubmit="event.preventDefault()">
               <div>
                 <label class="contact-label">Nombre <span class="contact-label__required">*</span></label>
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid gap-4 sm:grid-cols-2">
                   <input type="text" name="nombre" placeholder="Nombre" required class="contact-input" />
                   <input type="text" name="apellidos" placeholder="Apellidos" required class="contact-input" />
                 </div>
@@ -261,14 +246,14 @@
       </section>
 
       <section id="contacto-catalogo" class="bg-surface px-4 pt-[50px] pb-[100px] md:px-5 lg:px-[70px]">
-        <div data-reveal-group class="grid gap-10 sm:grid-cols-3">
+        <div data-reveal-group class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           <div>
             <h3 class="about-list-heading">Más recientes</h3>
             <span class="about-list-heading__rule" aria-hidden="true"></span>
             <ul class="mt-6 flex flex-col">
               <li class="about-list-item">
                 <span class="about-list-item__thumb">
-                  <img src="assets/images/productos/plantilla-ortopedica.png" alt="" loading="lazy" />
+                  <img src="assets/images/productos/plantilla-ortopedica.webp" alt="" loading="lazy" />
                 </span>
                 <span class="about-list-item__info">
                   <a href="ficha-producto.html?codigo=OP2026-EM" class="about-list-item__name">Plantillas Standart a la Medida</a>
@@ -282,7 +267,7 @@
               </li>
               <li class="about-list-item">
                 <span class="about-list-item__thumb">
-                  <img src="assets/images/productos/tobillera-compresion.png" alt="" loading="lazy" />
+                  <img src="assets/images/productos/tobillera-compresion.webp" alt="" loading="lazy" />
                 </span>
                 <span class="about-list-item__info">
                   <a href="ficha-producto.html?codigo=310TO03" class="about-list-item__name">Tobillera Deportiva/Barras Laterales</a>
@@ -296,7 +281,7 @@
               </li>
               <li class="about-list-item">
                 <span class="about-list-item__thumb">
-                  <img src="assets/images/productos/producto-homeopatico.png" alt="" loading="lazy" />
+                  <img src="assets/images/productos/producto-homeopatico.webp" alt="" loading="lazy" />
                 </span>
                 <span class="about-list-item__info">
                   <a href="ficha-producto.html?codigo=RECKFTRTR7" class="about-list-item__name">T-R7 Hepagalen</a>
@@ -317,7 +302,7 @@
             <ul class="mt-6 flex flex-col">
               <li class="about-list-item">
                 <span class="about-list-item__thumb">
-                  <img src="assets/images/productos/plantilla-ortopedica.png" alt="" loading="lazy" />
+                  <img src="assets/images/productos/plantilla-ortopedica.webp" alt="" loading="lazy" />
                 </span>
                 <span class="about-list-item__info">
                   <a href="ficha-producto.html?codigo=OP2026-EM" class="about-list-item__name">Plantillas Standart a la Medida</a>
@@ -331,7 +316,7 @@
               </li>
               <li class="about-list-item">
                 <span class="about-list-item__thumb">
-                  <img src="assets/images/productos/tobillera-compresion.png" alt="" loading="lazy" />
+                  <img src="assets/images/productos/tobillera-compresion.webp" alt="" loading="lazy" />
                 </span>
                 <span class="about-list-item__info">
                   <a href="ficha-producto.html?codigo=310TO03" class="about-list-item__name">Tobillera Deportiva/Barras Laterales</a>
@@ -345,7 +330,7 @@
               </li>
               <li class="about-list-item">
                 <span class="about-list-item__thumb">
-                  <img src="assets/images/productos/producto-homeopatico.png" alt="" loading="lazy" />
+                  <img src="assets/images/productos/producto-homeopatico.webp" alt="" loading="lazy" />
                 </span>
                 <span class="about-list-item__info">
                   <a href="ficha-producto.html?codigo=RECKFTRTR7" class="about-list-item__name">T-R7 Hepagalen</a>
@@ -366,7 +351,7 @@
             <ul class="mt-6 flex flex-col">
               <li class="about-list-item">
                 <span class="about-list-item__thumb">
-                  <img src="assets/images/productos/plantilla-ortopedica.png" alt="" loading="lazy" />
+                  <img src="assets/images/productos/plantilla-ortopedica.webp" alt="" loading="lazy" />
                 </span>
                 <span class="about-list-item__info">
                   <a href="ficha-producto.html?codigo=OP2026-EM" class="about-list-item__name">Plantillas Standart a la Medida</a>
@@ -380,7 +365,7 @@
               </li>
               <li class="about-list-item">
                 <span class="about-list-item__thumb">
-                  <img src="assets/images/productos/tobillera-compresion.png" alt="" loading="lazy" />
+                  <img src="assets/images/productos/tobillera-compresion.webp" alt="" loading="lazy" />
                 </span>
                 <span class="about-list-item__info">
                   <a href="ficha-producto.html?codigo=310TO03" class="about-list-item__name">Tobillera Deportiva/Barras Laterales</a>
@@ -394,7 +379,7 @@
               </li>
               <li class="about-list-item">
                 <span class="about-list-item__thumb">
-                  <img src="assets/images/productos/producto-homeopatico.png" alt="" loading="lazy" />
+                  <img src="assets/images/productos/producto-homeopatico.webp" alt="" loading="lazy" />
                 </span>
                 <span class="about-list-item__info">
                   <a href="ficha-producto.html?codigo=RECKFTRTR7" class="about-list-item__name">T-R7 Hepagalen</a>
@@ -414,12 +399,12 @@
 
     <footer id="site-footer" class="px-4 pt-16 pb-8 md:px-5 lg:px-[70px]">
       <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <img src="assets/images/Footer/footer-background.png" alt="" class="h-full w-full object-cover" />
+        <img src="assets/images/Footer/footer-background.webp" alt="" class="h-full w-full object-cover" />
       </div>
-      <div data-reveal class="relative grid gap-x-8 gap-y-12 border-b border-border pb-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div data-reveal class="footer-grid relative grid grid-cols-2 gap-x-6 gap-y-10 border-b border-border pb-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-x-8 lg:gap-y-12">
         <div>
           <a href="index.html" class="inline-flex" aria-label="NEXMED, ir al inicio">
-            <img src="assets/images/nexmed-logo.png" alt="NEXMED Soluciones Médicas" class="h-20 w-auto" />
+            <img src="assets/images/nexmed-logo.webp" alt="NEXMED Soluciones Médicas" class="h-20 w-auto" />
           </a>
           <address class="mt-6 text-[15px] not-italic leading-relaxed text-ink-secondary">
             Antonio Bellet 193, Oficina 1210<br />
@@ -484,7 +469,7 @@
           </div>
 
           <h3 class="footer-heading mt-9">Medios de pago</h3>
-          <div class="mt-5 flex items-center gap-3">
+          <div class="mt-5 flex flex-wrap items-center gap-3">
             <span class="footer-payment-slot">
               <img src="assets/images/Footer/Pagos/WebPay.png" alt="WebPay" />
             </span>
@@ -524,7 +509,6 @@
     <script src="assets/js/cart.js" defer></script>
     <script src="assets/js/header.js" defer></script>
     <script src="assets/js/scroll-reveal.js" defer></script>
-    <script src="assets/js/products-carousel.js" defer></script>
     <script src="assets/js/parallax.js" defer></script>
     <script src="assets/js/brand-marquee.js" defer></script>
   </body>
