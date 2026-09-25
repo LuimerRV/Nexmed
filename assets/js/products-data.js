@@ -1,10 +1,15 @@
 /*
  * Catálogo de los 14 productos de muestra (de 66 en el archivo fuente del
- * cliente), uno representativo por categoría real disponible. Precios y
+ * cliente), uno representativo por categoría real disponible, más el
+ * servicio de Urofusión (tipo "servicio": no comprable, ver más abajo). Precios y
  * nombres provienen del archivo "PRECIOS-PRODUCTOS-CATEGORIAS-MARCAS.xlsx"
  * del cliente. Los campos indicacion/presentacion/dosisHabitual/material
  * no existen en esa fuente: quedan en null a la espera de contenido real
  * (no se inventa información clínica).
+ *
+ * "indicacion" (suplementos y productos naturales): texto entregado por el
+ * cliente que se suma al nombre visible ("Nombre – indicación") en tienda,
+ * ficha, buscador y carrito vía NEXMED_DISPLAY_NAME.
  */
 (function () {
   "use strict";
@@ -18,7 +23,7 @@
       subcategoria: "Órtesis plantar para la corrección de la pisada",
       marca: "NEXMED",
       precio: 70000,
-      imagen: "assets/images/productos/plantilla-ortopedica.png",
+      imagen: "assets/images/productos/plantilla-ortopedica.webp",
       tienePlaceholder: false,
       indicacion: null,
       presentacion: null,
@@ -33,7 +38,7 @@
       subcategoria: "Tobillo/Pie",
       marca: "Theoduloz",
       precio: 30000,
-      imagen: "assets/images/productos/tobillera-compresion.png",
+      imagen: "assets/images/productos/tobillera-compresion.webp",
       tienePlaceholder: false,
       indicacion: null,
       presentacion: null,
@@ -123,7 +128,7 @@
       subcategoria: "Medicina Bioreguladora",
       marca: "Dr. Reckeweg",
       precio: 25990,
-      imagen: "assets/images/productos/producto-homeopatico.png",
+      imagen: "assets/images/productos/producto-homeopatico.webp",
       tienePlaceholder: false,
       indicacion: null,
       presentacion: null,
@@ -140,7 +145,7 @@
       precio: 25990,
       imagen: "assets/images/productos/jutussin-r8-solucion-oral.webp",
       tienePlaceholder: false,
-      indicacion: null,
+      indicacion: "coayudante en el tratamiento de la tos",
       presentacion: null,
       dosisHabitual: null,
       material: null,
@@ -168,7 +173,7 @@
       subcategoria: "Evogen Premium Supplements",
       marca: "Evogen",
       precio: 46990,
-      imagen: "assets/images/productos/suplemento-deportivo.png",
+      imagen: "assets/images/productos/suplemento-deportivo.webp",
       tienePlaceholder: false,
       indicacion: null,
       presentacion: null,
@@ -224,7 +229,47 @@
       dosisHabitual: null,
       material: null,
     },
+    {
+      /*
+       * Servicio (no comprable): biopsias de Urofusión. Datos del archivo de
+       * productos del cliente (código, categoría, subcategoría, marca;
+       * precio "LINK / DERIVACIÓN") y de la ficha de referencia entregada
+       * por el cliente. Se agenda en el sistema externo de Urofusión.
+       * Logo: versión en alta entregada por el cliente, recortada y con
+       * fondo transparente (assets/images/marcas/urofusion-logo.webp).
+       */
+      codigo: "URO-BP2026",
+      tipo: "servicio",
+      nombre: "Biopsias Prostáticas de Precisión",
+      categoria: "UROLOGIA",
+      categoriaLabel: "Urología",
+      subcategoria: "Biopsia por fusión",
+      marca: "UroFusión",
+      precio: null,
+      imagen: "assets/images/marcas/urofusion-logo.webp",
+      tienePlaceholder: false,
+      servicio: {
+        puntos: [
+          "Urofusión es una marca especializada en Biopsias prostáticas de Precisión con alta asertividad diagnóstica. Atienden en modalidad Fonasa, Isapres y convenios directos.",
+          "Promedio de satisfacción del usuario es de un 98%.",
+          "Requiere Prescripción médica del especialista.",
+        ],
+        ubicacion: "Providencia, Santiago.",
+        telefonos: ["+56 9 33926067", "+56 9 33756868"],
+        agendarUrl: "https://urofusion.site.agendapro.com/cl/sucursal/47229",
+      },
+    },
   ];
+
+  /* Nombre visible: nombre + indicación del cliente cuando existe. */
+  window.NEXMED_DISPLAY_NAME = function (product) {
+    return product.indicacion ? product.nombre + " – " + product.indicacion : product.nombre;
+  };
+
+  /* Servicios: se muestran en Tienda y tienen ficha, pero no van al carrito. */
+  window.NEXMED_IS_SERVICE = function (product) {
+    return !!product && product.tipo === "servicio";
+  };
 
   /*
    * Marcas que aparecen en el carrusel "Marcas con las que trabajamos" del
@@ -233,7 +278,7 @@
    * también las muestre (la marca existe; el catálogo de esa marca, no
    * todavía) sin inventar productos que no existen.
    */
-  window.NEXMED_BRANDS_SIN_PRODUCTOS = ["Blunding Kids", "Mega Med", "Planty", "UroFusión", "DenTek"];
+  window.NEXMED_BRANDS_SIN_PRODUCTOS = ["Blunding Kids", "Mega Med", "Planty", "DenTek"];
 
   /*
    * Categorías del negocio que el cliente quiere disponibles en el filtro

@@ -27,19 +27,19 @@
     <div id="header-sentinel" class="h-px" aria-hidden="true"></div>
     <header id="site-header" class="fixed inset-x-0 top-0 z-50">
       <div
-        class="header-row relative grid w-full grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 pt-[50px] pb-6 md:px-5 lg:px-[70px]"
+        class="header-row relative grid w-full grid-cols-[1fr_auto] items-center gap-4 px-4 py-4 md:px-5 md:py-5 lg:grid-cols-[1fr_auto_1fr] lg:px-[70px] lg:pt-[50px] lg:pb-6"
       >
         <a
           href="index.html"
-          class="relative block h-[37px] w-auto shrink-0 justify-self-start transition-opacity duration-300 hover:opacity-80 lg:h-[69px]"
+          class="relative block h-[42px] w-auto md:h-[48px] shrink-0 justify-self-start transition-opacity duration-300 hover:opacity-80 lg:h-[69px]"
           aria-label="NEXMED, ir al inicio"
         >
           <img
-            src="assets/images/nexmed-logo.png"
+            src="assets/images/nexmed-logo.webp"
             alt="NEXMED Soluciones Médicas"
             width="3508"
             height="1430"
-            class="block h-[37px] w-auto lg:h-[69px]"
+            class="block h-[42px] w-auto md:h-[48px] lg:h-[69px]"
           />
         </a>
 
@@ -47,7 +47,7 @@
           <ul id="primary-nav-list" class="header-nav-pill flex items-center gap-1 rounded-full p-1.5"></ul>
         </nav>
 
-        <div class="flex items-center justify-self-end gap-3">
+        <div class="flex items-center justify-self-end gap-2 md:gap-3">
           <button
             type="button"
             id="search-toggle-button"
@@ -81,6 +81,7 @@
             id="mobile-menu-button"
             aria-expanded="false"
             aria-controls="mobile-menu"
+            aria-haspopup="dialog"
             aria-label="Abrir menú"
             class="header-icon-pill flex h-11 w-11 shrink-0 items-center justify-center rounded-full lg:hidden"
           >
@@ -89,23 +90,7 @@
               <path d="M4 12h16" />
               <path d="M4 17h16" />
             </svg>
-            <svg id="icon-close" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M6 6l12 12" />
-              <path d="M18 6L6 18" />
-            </svg>
           </button>
-        </div>
-
-        <div
-          id="mobile-menu"
-          role="region"
-          aria-label="Menú de navegación"
-          hidden
-          class="absolute inset-x-0 top-full border-t border-border bg-surface p-6 shadow-soft lg:hidden"
-        >
-          <nav aria-label="Navegación principal">
-            <ul id="mobile-nav-list" class="flex flex-col gap-5"></ul>
-          </nav>
         </div>
       </div>
     </header>
@@ -166,7 +151,7 @@
     </aside>
 
     <main id="main-content">
-      <section id="profesionales-intro" class="bg-surface p-[10px] pt-[150px] pb-[40px]">
+      <section id="profesionales-intro" class="bg-surface p-[10px] pt-[86px] md:pt-[98px] lg:pt-[150px] pb-[40px]">
         <div data-reveal class="about-intro grid gap-5 rounded-card bg-[#F2EDFA] p-5 lg:grid-cols-[1fr_0.9fr]">
           <div class="flex flex-col justify-center gap-5 px-2 py-10 lg:px-8">
             <p class="contact-eyebrow">Acceso para médicos y profesionales</p>
@@ -188,15 +173,38 @@
       </section>
 
       <section id="profesionales-evidencia" class="bg-surface px-4 pt-[70px] pb-[70px] md:px-5 lg:px-[70px]">
-        <div data-reveal>
-          <h2 class="font-display mb-10 text-[40px] font-semibold text-ink-primary">Evidencia y estudios</h2>
+        <div data-reveal data-carousel>
+          <div class="mb-10 flex flex-wrap items-center justify-between gap-4">
+            <h2 class="font-display text-[26px] leading-[1.15] font-semibold text-ink-primary sm:text-[30px] lg:text-[40px]">Evidencia y estudios</h2>
+            <div class="flex items-center gap-2">
+              <button type="button" data-carousel-prev aria-label="Estudio anterior" aria-controls="evidencia-track" class="carousel-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4">
+                  <path d="M15 6l-6 6 6 6" />
+                </svg>
+              </button>
+              <button type="button" data-carousel-next aria-label="Estudio siguiente" aria-controls="evidencia-track" class="carousel-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4">
+                  <path d="M9 6l6 6-6 6" />
+                </svg>
+              </button>
+            </div>
+          </div>
 
-          <div data-reveal-group class="grid gap-6 sm:grid-cols-3">
-            <a href="articulo.html?slug=plantilla-ortopedica-adecuada" class="article-card">
+          <!-- Tarjetas generadas desde window.NEXMED_EVIDENCE (assets/js/articles-data.js). Contenido de prueba. -->
+          <div
+            id="evidencia-track"
+            data-reveal-group
+            data-carousel-track
+            tabindex="0"
+            role="region"
+            aria-label="Carrusel de evidencia y estudios"
+            class="product-carousel article-carousel"
+          >
+            <a href="articulo.html?slug=plantillas-a-medida-fascitis-plantar" class="article-card">
               <div class="article-card__media">
                 <img
-                  src="assets/images/novedades/plantilla-ortopedica-adecuada.png"
-                  alt="Cómo elegir la plantilla ortopédica adecuada"
+                  src="assets/images/Profesionales/evidencia/plantillas-fascitis-plantar.webp"
+                  alt="Plantillas a medida en fascitis plantar: experiencia en consulta"
                   loading="lazy"
                   onerror="this.style.display='none'"
                 />
@@ -208,18 +216,18 @@
                   <path d="M12 5v14M5 12h14" />
                 </svg>
               </span>
-              <h3 class="article-card__title">Cómo elegir la plantilla ortopédica adecuada</h3>
+              <h3 class="article-card__title">Plantillas a medida en fascitis plantar: experiencia en consulta</h3>
               <div class="article-card__footer">
-                <span class="article-card__date">Ene 2026</span>
-                <p class="article-card__excerpt">Claves para entender cuándo y por qué usarlas.</p>
+                <span class="article-card__date">Abr 2026</span>
+                <p class="article-card__excerpt">Seguimiento de pacientes con dolor de talón tratados con soporte plantar personalizado.</p>
               </div>
             </a>
 
-            <a href="articulo.html?slug=cuidado-uso-ortesis" class="article-card">
+            <a href="articulo.html?slug=ortesis-tobillo-esguince" class="article-card">
               <div class="article-card__media">
                 <img
-                  src="assets/images/novedades/cuidado-uso-ortesis2.png"
-                  alt="Cuidados y uso correcto de las órtesis"
+                  src="assets/images/Profesionales/evidencia/ortesis-tobillo-esguince.webp"
+                  alt="Uso de órtesis de tobillo en la rehabilitación de esguinces"
                   loading="lazy"
                   onerror="this.style.display='none'"
                 />
@@ -231,18 +239,18 @@
                   <path d="M12 5v14M5 12h14" />
                 </svg>
               </span>
-              <h3 class="article-card__title">Cuidados y uso correcto de las órtesis</h3>
+              <h3 class="article-card__title">Uso de órtesis de tobillo en la rehabilitación de esguinces</h3>
               <div class="article-card__footer">
-                <span class="article-card__date">Feb 2026</span>
-                <p class="article-card__excerpt">Recomendaciones generales de uso y mantención.</p>
+                <span class="article-card__date">May 2026</span>
+                <p class="article-card__excerpt">Criterios prácticos para indicar y retirar una órtesis funcional tras un esguince lateral.</p>
               </div>
             </a>
 
-            <a href="articulo.html?slug=medicina-biorreguladora" class="article-card">
+            <a href="articulo.html?slug=proteina-post-cirugia-bariatrica" class="article-card">
               <div class="article-card__media">
                 <img
-                  src="assets/images/novedades/medicina-biorreguladora.png"
-                  alt="Qué es la medicina biorreguladora"
+                  src="assets/images/Profesionales/evidencia/proteina-post-bariatrica.webp"
+                  alt="Suplementación proteica después de una cirugía bariátrica"
                   loading="lazy"
                   onerror="this.style.display='none'"
                 />
@@ -254,10 +262,33 @@
                   <path d="M12 5v14M5 12h14" />
                 </svg>
               </span>
-              <h3 class="article-card__title">Qué es la medicina biorreguladora</h3>
+              <h3 class="article-card__title">Suplementación proteica después de una cirugía bariátrica</h3>
               <div class="article-card__footer">
-                <span class="article-card__date">Mar 2026</span>
-                <p class="article-card__excerpt">Una introducción a esta línea de productos.</p>
+                <span class="article-card__date">Jun 2026</span>
+                <p class="article-card__excerpt">Recomendaciones de seguimiento nutricional compartidas desde la práctica clínica.</p>
+              </div>
+            </a>
+
+            <a href="articulo.html?slug=medicina-biorreguladora-complemento" class="article-card">
+              <div class="article-card__media">
+                <img
+                  src="assets/images/Profesionales/evidencia/biorreguladora-complemento.webp"
+                  alt="Medicina biorreguladora como complemento terapéutico"
+                  loading="lazy"
+                  onerror="this.style.display='none'"
+                />
+                <span class="article-card__grain" aria-hidden="true"></span>
+                <span class="article-card__scrim" aria-hidden="true"></span>
+              </div>
+              <span class="article-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="h-4 w-4">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              </span>
+              <h3 class="article-card__title">Medicina biorreguladora como complemento terapéutico</h3>
+              <div class="article-card__footer">
+                <span class="article-card__date">Jul 2026</span>
+                <p class="article-card__excerpt">Experiencias compartidas por profesionales que la integran en su práctica.</p>
               </div>
             </a>
           </div>
@@ -268,7 +299,7 @@
         <div data-reveal class="relative overflow-hidden rounded-hero">
           <div class="grid gap-10 lg:grid-cols-2">
             <div class="flex h-full flex-col">
-              <h2 class="font-display text-[40px] font-semibold text-ink-primary">Comparte tu evidencia</h2>
+              <h2 class="font-display text-[26px] leading-[1.15] font-semibold text-ink-primary sm:text-[30px] lg:text-[40px]">Comparte tu evidencia</h2>
               <p class="mt-4 w-full text-base leading-relaxed text-ink-secondary">
                 ¿Tienes estudios o material clínico? Súbelo para revisión y suma tu experiencia al
                 respaldo profesional de NEXMED.
@@ -294,6 +325,19 @@
               <div>
                 <label for="pro-study-authors" class="contact-label">Nombre del/los autor(es)</label>
                 <input id="pro-study-authors" type="text" name="autores" placeholder="Nombre del/los autor(es)" class="contact-input" />
+              </div>
+
+              <div>
+                <label for="pro-study-email" class="contact-label">Correo electrónico <span class="contact-label__required">*</span></label>
+                <input
+                  id="pro-study-email"
+                  type="email"
+                  name="email"
+                  placeholder="tu@correo.cl"
+                  autocomplete="email"
+                  required
+                  class="contact-input"
+                />
               </div>
 
               <div>
@@ -336,12 +380,12 @@
 
     <footer id="site-footer" class="px-4 pt-16 pb-8 md:px-5 lg:px-[70px]">
       <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <img src="assets/images/Footer/footer-background.png" alt="" class="h-full w-full object-cover" />
+        <img src="assets/images/Footer/footer-background.webp" alt="" class="h-full w-full object-cover" />
       </div>
-      <div data-reveal class="relative grid gap-x-8 gap-y-12 border-b border-border pb-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div data-reveal class="footer-grid relative grid grid-cols-2 gap-x-6 gap-y-10 border-b border-border pb-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-x-8 lg:gap-y-12">
         <div>
           <a href="index.html" class="inline-flex" aria-label="NEXMED, ir al inicio">
-            <img src="assets/images/nexmed-logo.png" alt="NEXMED Soluciones Médicas" class="h-20 w-auto" />
+            <img src="assets/images/nexmed-logo.webp" alt="NEXMED Soluciones Médicas" class="h-20 w-auto" />
           </a>
           <address class="mt-6 text-[15px] not-italic leading-relaxed text-ink-secondary">
             Antonio Bellet 193, Oficina 1210<br />
@@ -406,7 +450,7 @@
           </div>
 
           <h3 class="footer-heading mt-9">Medios de pago</h3>
-          <div class="mt-5 flex items-center gap-3">
+          <div class="mt-5 flex flex-wrap items-center gap-3">
             <span class="footer-payment-slot">
               <img src="assets/images/Footer/Pagos/WebPay.png" alt="WebPay" />
             </span>
@@ -446,5 +490,6 @@
     <script src="assets/js/cart.js" defer></script>
     <script src="assets/js/header.js" defer></script>
     <script src="assets/js/scroll-reveal.js" defer></script>
+    <script src="assets/js/carousel.js" defer></script>
   </body>
 </html>

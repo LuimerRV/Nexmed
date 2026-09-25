@@ -32,33 +32,6 @@
     );
   }
 
-  function renderMobileNavItem(item, isActive) {
-    if (item.comingSoon) {
-      return (
-        '<span class="inline-flex items-center gap-2 text-base text-ink-secondary/70">' +
-        item.label +
-        "</span>"
-      );
-    }
-
-    var stateClass = isActive ? "text-brand-purple" : "text-ink-primary hover:text-brand-blue";
-    var underlineClass = isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100";
-
-    return (
-      '<a href="' +
-      item.href +
-      '"' +
-      (isActive ? ' aria-current="page"' : "") +
-      ' class="group relative inline-flex items-center text-base font-medium transition-colors duration-300 ' +
-      stateClass +
-      '">' +
-      item.label +
-      '<span class="absolute -bottom-1 left-0 h-[1.5px] w-full origin-left bg-brand-blue transition-transform duration-300 motion-reduce:transition-none ' +
-      underlineClass +
-      '" aria-hidden="true"></span></a>'
-    );
-  }
-
   function initNav() {
     var currentPage = document.body.getAttribute("data-page") || "";
 
@@ -68,42 +41,176 @@
         return "<li>" + renderDesktopNavItem(item, item.key === currentPage) + "</li>";
       }).join("");
     }
+  }
 
-    var mobileList = document.getElementById("mobile-nav-list");
-    if (mobileList) {
-      mobileList.innerHTML = NAV_ITEMS.map(function (item) {
-        return "<li>" + renderMobileNavItem(item, item.key === currentPage) + "</li>";
-      }).join("");
+  /*
+   * Sidebar de navegación (móvil y tablet, < lg). Se genera aquí para que
+   * los enlaces y los datos de contacto tengan una única fuente en las 14
+   * páginas. Los datos de contacto son los mismos del footer.
+   */
+  var SIDEBAR_CONTACT = [
+    { label: "Tel. +56 2 2345 6789", href: "tel:+56223456789" },
+    { label: "infocontacto@nexmed.cl", href: "mailto:infocontacto@nexmed.cl" },
+    { label: "Lun a Vie · 9:00–18:00" },
+  ];
+
+  var ARROW_ICON =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="mobile-sidebar__arrow">' +
+    '<path d="M5 12h14" /><path d="M13 6l6 6-6 6" /></svg>';
+
+  function renderSidebarNavItem(item, isActive, index) {
+    return (
+      '<li style="--i:' +
+      index +
+      '"><a href="' +
+      item.href +
+      '"' +
+      (isActive ? ' aria-current="page"' : "") +
+      ' class="mobile-sidebar__link">' +
+      "<span>" +
+      item.label +
+      "</span>" +
+      ARROW_ICON +
+      "</a></li>"
+    );
+  }
+
+  function renderSidebarContactItem(item) {
+    return item.href
+      ? '<li><a href="' + item.href + '" class="mobile-sidebar__contact-link">' + item.label + "</a></li>"
+      : "<li>" + item.label + "</li>";
+  }
+
+  function buildSidebar(currentPage) {
+    var overlay = document.createElement("div");
+    overlay.id = "mobile-menu-overlay";
+    overlay.className = "mobile-sidebar-overlay";
+    overlay.hidden = true;
+
+    var panel = document.createElement("div");
+    panel.id = "mobile-menu";
+    panel.className = "mobile-sidebar";
+    panel.hidden = true;
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-modal", "true");
+    panel.setAttribute("aria-label", "Menú de navegación");
+    panel.innerHTML =
+      '<div class="mobile-sidebar__top">' +
+      '<a href="index.html" class="mobile-sidebar__logo" aria-label="NEXMED, ir al inicio">' +
+      '<img src="assets/images/nexmed-logo.webp" alt="" width="3508" height="1430" /></a>' +
+      '<button type="button" id="mobile-menu-close" class="header-icon-pill mobile-sidebar__close" aria-label="Cerrar menú">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-5 w-5">' +
+      '<path d="M6 6l12 12" /><path d="M18 6L6 18" /></svg></button>' +
+      "</div>" +
+      '<nav aria-label="Navegación principal" class="mobile-sidebar__nav"><ul>' +
+      NAV_ITEMS.map(function (item, index) {
+        return renderSidebarNavItem(item, item.key === currentPage, index);
+      }).join("") +
+      "</ul></nav>" +
+      '<div class="mobile-sidebar__contact">' +
+      '<p class="mobile-sidebar__heading">Contacto</p>' +
+      "<ul>" +
+      SIDEBAR_CONTACT.map(renderSidebarContactItem).join("") +
+      "</ul></div>";
+
+    document.body.appendChild(overlay);
+    document.body.appendChild(panel);
+    return { overlay: overlay, panel: panel };
+  }
+
+  function initSidebar() {
+    var button = document.getElementById("mobile-menu-button");
+    if (!button) return;
+
+    var parts = buildSidebar(document.body.getAttribute("data-page") || "");
+    var overlay = parts.overlay;
+    var panel = parts.panel;
+    var closeButton = panel.querySelector("#mobile-menu-close");
+    var desktopQuery = window.matchMedia("(min-width: 1024px)");
+    var hideTimer = null;
+
+    function isOpen() {
+      return panel.classList.contains("is-open");
     }
+
+    function focusableElements() {
+      return Array.prototype.slice.call(panel.querySelectorAll("a[href], button:not([disabled])"));
+    }
+
+    function open() {
+      clearTimeout(hideTimer);
+      overlay.hidden = false;
+      panel.hidden = false;
+      // Forzar reflow para que la transición de entrada parta desde fuera de pantalla.
+      void panel.offsetWidth;
+      overlay.classList.add("is-open");
+      panel.classList.add("is-open");
+      button.setAttribute("aria-expanded", "true");
+      document.documentElement.classList.add("overflow-hidden");
+      closeButton.focus();
+    }
+
+    function close(returnFocus) {
+      if (!isOpen()) return;
+      overlay.classList.remove("is-open");
+      panel.classList.remove("is-open");
+      button.setAttribute("aria-expanded", "false");
+      document.documentElement.classList.remove("overflow-hidden");
+      // Ocultar tras la transición de salida (duración en input.css).
+      hideTimer = setTimeout(function () {
+        overlay.hidden = true;
+        panel.hidden = true;
+      }, 450);
+      if (returnFocus) button.focus();
+    }
+
+    button.addEventListener("click", open);
+    closeButton.addEventListener("click", function () {
+      close(true);
+    });
+    overlay.addEventListener("click", function () {
+      close(true);
+    });
+
+    panel.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        close(true);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      // Mantener el foco dentro del diálogo mientras está abierto.
+      var items = focusableElements();
+      var first = items[0];
+      var last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    // En desktop la navegación vuelve a la cápsula del header.
+    desktopQuery.addEventListener("change", function (event) {
+      if (event.matches) close(false);
+    });
   }
 
   function initPanels() {
     var panels = [
-      {
-        button: document.getElementById("mobile-menu-button"),
-        panel: document.getElementById("mobile-menu"),
-        openLabel: "Abrir menú",
-        closeLabel: "Cerrar menú",
-        focusSelector: "#mobile-nav-list a",
-        swapIcons: true,
-        animationClass: "animate-header-menu-in",
-      },
       {
         button: document.getElementById("search-toggle-button"),
         panel: document.getElementById("search-panel"),
         openLabel: "Buscar",
         closeLabel: "Buscar",
         focusSelector: "#header-search-input",
-        swapIcons: false,
         animationClass: "animate-search-panel-in",
         overlay: document.getElementById("search-overlay"),
       },
     ].filter(function (entry) {
       return entry.button && entry.panel;
     });
-
-    var iconMenu = document.getElementById("icon-menu");
-    var iconClose = document.getElementById("icon-close");
 
     function closeAll(exceptEntry) {
       panels.forEach(function (entry) {
@@ -118,18 +225,13 @@
       entry.button.setAttribute("aria-expanded", String(open));
       entry.button.setAttribute("aria-label", open ? entry.closeLabel : entry.openLabel);
 
-      if (entry.swapIcons && iconMenu && iconClose) {
-        iconMenu.classList.toggle("hidden", open);
-        iconClose.classList.toggle("hidden", !open);
-      }
-
       var anyOpen = panels.some(function (p) {
         return !p.panel.hidden;
       });
       document.documentElement.classList.toggle("overflow-hidden", anyOpen);
 
       if (open) {
-        var animationClass = entry.animationClass || "animate-header-menu-in";
+        var animationClass = entry.animationClass;
         entry.panel.classList.remove(animationClass);
         void entry.panel.offsetWidth;
         entry.panel.classList.add(animationClass);
@@ -165,10 +267,11 @@
   }
 
   var SEARCHABLE_PRODUCTS = (window.NEXMED_PRODUCTS || []).map(function (product) {
+    var isService = window.NEXMED_IS_SERVICE && window.NEXMED_IS_SERVICE(product);
     return {
-      name: product.nombre,
-      price: "$" + product.precio.toLocaleString("es-CL"),
-      image: product.imagen || "assets/images/productos/plantilla-ortopedica.png",
+      name: window.NEXMED_DISPLAY_NAME ? window.NEXMED_DISPLAY_NAME(product) : product.nombre,
+      price: isService ? "Servicio · Agenda tu hora" : "$" + product.precio.toLocaleString("es-CL"),
+      image: product.imagen || "assets/images/productos/plantilla-ortopedica.webp",
       href: "ficha-producto.html?codigo=" + encodeURIComponent(product.codigo),
     };
   });
@@ -252,6 +355,7 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     initNav();
+    initSidebar();
     initPanels();
     initSearch();
     initScrollEffect();

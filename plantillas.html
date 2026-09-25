@@ -27,19 +27,19 @@
     <div id="header-sentinel" class="h-px" aria-hidden="true"></div>
     <header id="site-header" class="fixed inset-x-0 top-0 z-50">
       <div
-        class="header-row relative grid w-full grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 pt-[50px] pb-6 md:px-5 lg:px-[70px]"
+        class="header-row relative grid w-full grid-cols-[1fr_auto] items-center gap-4 px-4 py-4 md:px-5 md:py-5 lg:grid-cols-[1fr_auto_1fr] lg:px-[70px] lg:pt-[50px] lg:pb-6"
       >
         <a
           href="index.html"
-          class="relative block h-[37px] w-auto shrink-0 justify-self-start transition-opacity duration-300 hover:opacity-80 lg:h-[69px]"
+          class="relative block h-[42px] w-auto md:h-[48px] shrink-0 justify-self-start transition-opacity duration-300 hover:opacity-80 lg:h-[69px]"
           aria-label="NEXMED, ir al inicio"
         >
           <img
-            src="assets/images/nexmed-logo.png"
+            src="assets/images/nexmed-logo.webp"
             alt="NEXMED Soluciones Médicas"
             width="3508"
             height="1430"
-            class="block h-[37px] w-auto lg:h-[69px]"
+            class="block h-[42px] w-auto md:h-[48px] lg:h-[69px]"
           />
         </a>
 
@@ -47,7 +47,7 @@
           <ul id="primary-nav-list" class="header-nav-pill flex items-center gap-1 rounded-full p-1.5"></ul>
         </nav>
 
-        <div class="flex items-center justify-self-end gap-3">
+        <div class="flex items-center justify-self-end gap-2 md:gap-3">
           <button
             type="button"
             id="search-toggle-button"
@@ -81,6 +81,7 @@
             id="mobile-menu-button"
             aria-expanded="false"
             aria-controls="mobile-menu"
+            aria-haspopup="dialog"
             aria-label="Abrir menú"
             class="header-icon-pill flex h-11 w-11 shrink-0 items-center justify-center rounded-full lg:hidden"
           >
@@ -89,23 +90,7 @@
               <path d="M4 12h16" />
               <path d="M4 17h16" />
             </svg>
-            <svg id="icon-close" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M6 6l12 12" />
-              <path d="M18 6L6 18" />
-            </svg>
           </button>
-        </div>
-
-        <div
-          id="mobile-menu"
-          role="region"
-          aria-label="Menú de navegación"
-          hidden
-          class="absolute inset-x-0 top-full border-t border-border bg-surface p-6 shadow-soft lg:hidden"
-        >
-          <nav aria-label="Navegación principal">
-            <ul id="mobile-nav-list" class="flex flex-col gap-5"></ul>
-          </nav>
         </div>
       </div>
     </header>
@@ -166,7 +151,7 @@
     </aside>
 
     <main id="main-content">
-      <section class="bg-surface p-[10px] pt-[150px] pb-[70px]">
+      <section class="bg-surface p-[10px] pt-[86px] md:pt-[98px] lg:pt-[150px] pb-[70px]">
         <div data-reveal class="landing-hero p-5">
           <div class="px-2 py-10 lg:px-8">
             <p class="landing-hero__eyebrow">Plantillas ortopédicas a medida</p>
@@ -177,12 +162,59 @@
             </p>
             <a href="agendar-plantilla.html" class="landing-hero__cta">Agendar mi plantilla</a>
           </div>
-          <div class="landing-hero__media">
+          <!--
+            Secuencia animada: 5 fotos de plantillas + logo Parapie. Misma
+            animación que "Plantillas a la medida" del Home (product-star-slider.js).
+            Fotos 2–5 generadas con Magnific a partir de las plantillas del cliente.
+          -->
+          <div class="landing-hero__media" data-star-slider>
             <img
-              src="assets/images/Plantillas a medida/plantilla-a-medida.png"
-              alt="Plantillas ortopédicas a la medida"
+              src="assets/images/Plantillas a medida/secuencia/plantilla-1.webp"
+              alt="Plantillas ortopédicas a la medida, azul y negro"
+              width="1400"
+              height="933"
+              fetchpriority="high"
+              class="product-star__card-slide product-star__sequence-slide is-active"
+            />
+            <img
+              src="assets/images/Plantillas a medida/secuencia/plantilla-2.webp"
+              alt="Plantillas Blunding amarillas y grises"
+              width="1400"
+              height="1050"
               loading="lazy"
-              onerror="this.style.display='none'"
+              class="product-star__card-slide product-star__sequence-slide"
+            />
+            <img
+              src="assets/images/Plantillas a medida/secuencia/plantilla-3.webp"
+              alt="Plantillas de confort beige con base azul"
+              width="1400"
+              height="1050"
+              loading="lazy"
+              class="product-star__card-slide product-star__sequence-slide"
+            />
+            <img
+              src="assets/images/Plantillas a medida/secuencia/plantilla-4.webp"
+              alt="Plantillas andFlex Comfort"
+              width="1400"
+              height="1050"
+              loading="lazy"
+              class="product-star__card-slide product-star__sequence-slide"
+            />
+            <img
+              src="assets/images/Plantillas a medida/secuencia/plantilla-5.webp"
+              alt="Plantillas azules perforadas"
+              width="1400"
+              height="1050"
+              loading="lazy"
+              class="product-star__card-slide product-star__sequence-slide"
+            />
+            <img
+              src="assets/images/Home/animacion-plantillas/parapie-logo.webp"
+              alt="Parapie, órtesis plantares"
+              width="800"
+              height="800"
+              loading="lazy"
+              class="product-star__card-slide landing-hero__logo-slide"
             />
           </div>
         </div>
@@ -190,10 +222,10 @@
 
       <section id="landing-como-funciona" class="bg-surface px-4 pt-[20px] pb-[100px] md:px-5 lg:px-[70px]">
         <div data-reveal>
-          <h2 class="mb-10 text-center font-display text-[28px] font-semibold text-ink-primary">
+          <h2 class="mb-10 text-center font-display text-[24px] font-semibold text-ink-primary lg:text-[28px]">
             ¿Cómo funciona?
           </h2>
-          <div data-reveal-group class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div data-reveal-group class="steps-grid grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
             <div class="benefit-card--textured benefit-card--texture-full rounded-card bg-[#F3F3F3] p-8">
               <div class="relative flex h-full flex-col items-start gap-6">
                 <div class="benefit-card__icon-wrap">
@@ -225,7 +257,7 @@
                   <span class="benefit-card__icon" aria-hidden="true">03</span>
                 </div>
                 <div class="benefit-card__content">
-                  <h3 class="benefit-card__title">Agenda y prepago</h3>
+                  <h3 class="benefit-card__title">Resumen y pago</h3>
                 </div>
               </div>
             </div>
@@ -245,7 +277,7 @@
         </div>
       </section>
 
-      <section class="flex h-[110px] items-center bg-brand-purple px-4 md:px-5 lg:px-[70px]">
+      <section class="flex min-h-[110px] items-center bg-brand-purple px-4 py-10 md:px-5 lg:h-[110px] lg:px-[70px] lg:py-0">
         <div data-reveal class="landing-cta-banner w-full">
           <h2 class="landing-cta-banner__title">Agenda y adquiere tu plantilla a medida</h2>
           <a href="agendar-plantilla.html" class="landing-cta-banner__cta">
@@ -261,12 +293,12 @@
 
     <footer id="site-footer" class="px-4 pt-16 pb-8 md:px-5 lg:px-[70px]">
       <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <img src="assets/images/Footer/footer-background.png" alt="" class="h-full w-full object-cover" />
+        <img src="assets/images/Footer/footer-background.webp" alt="" class="h-full w-full object-cover" />
       </div>
-      <div data-reveal class="relative grid gap-x-8 gap-y-12 border-b border-border pb-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div data-reveal class="footer-grid relative grid grid-cols-2 gap-x-6 gap-y-10 border-b border-border pb-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-x-8 lg:gap-y-12">
         <div>
           <a href="index.html" class="inline-flex" aria-label="NEXMED, ir al inicio">
-            <img src="assets/images/nexmed-logo.png" alt="NEXMED Soluciones Médicas" class="h-20 w-auto" />
+            <img src="assets/images/nexmed-logo.webp" alt="NEXMED Soluciones Médicas" class="h-20 w-auto" />
           </a>
           <address class="mt-6 text-[15px] not-italic leading-relaxed text-ink-secondary">
             Antonio Bellet 193, Oficina 1210<br />
@@ -331,7 +363,7 @@
           </div>
 
           <h3 class="footer-heading mt-9">Medios de pago</h3>
-          <div class="mt-5 flex items-center gap-3">
+          <div class="mt-5 flex flex-wrap items-center gap-3">
             <span class="footer-payment-slot">
               <img src="assets/images/Footer/Pagos/WebPay.png" alt="WebPay" />
             </span>
@@ -371,5 +403,6 @@
     <script src="assets/js/cart.js" defer></script>
     <script src="assets/js/header.js" defer></script>
     <script src="assets/js/scroll-reveal.js" defer></script>
+    <script src="assets/js/product-star-slider.js" defer></script>
   </body>
 </html>

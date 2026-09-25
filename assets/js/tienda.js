@@ -5,18 +5,45 @@
     return "$" + n.toLocaleString("es-CL");
   }
 
+  /*
+   * Servicios (p. ej. Urofusión): misma card, pero sin precio ni carrito.
+   * "Ver servicio" lleva a su ficha y "Agendar hora" al sistema externo.
+   */
+  function serviceCardHTML(p, name, href, imgTag) {
+    return (
+      '<div class="product-card product-card--service">' +
+        '<a href="' + href + '" class="product-card__link">' +
+          '<div class="product-card__image product-card__image--logo">' + imgTag + "</div>" +
+          '<div class="product-card__body">' +
+            '<span class="product-card__service-pill">Servicio</span>' +
+            '<h3 class="product-card__title">' + name + "</h3>" +
+            '<span class="product-card__service-note">Agendamiento con ' + p.marca + "</span>" +
+          "</div>" +
+        "</a>" +
+        '<div class="product-card__actions">' +
+          '<a href="' + href + '" class="product-card__cta product-card__cta--secondary">Ver servicio</a>' +
+          '<a href="' + p.servicio.agendarUrl + '" target="_blank" rel="noopener noreferrer" class="product-card__cta product-card__cta--primary">' +
+            'Agendar hora<span class="sr-only"> (se abre en una pestaña nueva)</span>' +
+          "</a>" +
+        "</div>" +
+      "</div>"
+    );
+  }
+
   function productCardHTML(p) {
+    var name = window.NEXMED_DISPLAY_NAME(p);
     var imgTag = p.imagen
-      ? '<img src="' + p.imagen + '" alt="' + p.nombre + '" loading="lazy" onerror="this.style.display=\'none\'" />'
+      ? '<img src="' + p.imagen + '" alt="' + name + '" loading="lazy" onerror="this.style.display=\'none\'" />'
       : '<div class="shop-card-placeholder" aria-hidden="true"></div>';
     var href = "ficha-producto.html?codigo=" + encodeURIComponent(p.codigo);
+    if (window.NEXMED_IS_SERVICE(p)) return serviceCardHTML(p, name, href, imgTag);
     return (
       '<div class="product-card">' +
         '<a href="' + href + '" class="product-card__link">' +
           '<div class="product-card__image">' + imgTag + "</div>" +
           '<div class="product-card__body">' +
             '<span class="product-card__stock-pill">En stock</span>' +
-            '<h3 class="product-card__title">' + p.nombre + "</h3>" +
+            '<h3 class="product-card__title">' + name + "</h3>" +
             '<span class="product-card__price">' + money(p.precio) + "</span>" +
           "</div>" +
         "</a>" +
@@ -152,13 +179,15 @@
           return (
             p.categoriaLabel === cat &&
             effectiveBrands.indexOf(p.marca) !== -1 &&
-            p.precio >= currentMin &&
-            p.precio <= currentMax
+            // Los servicios no tienen precio: el filtro de precio no los excluye.
+            (window.NEXMED_IS_SERVICE(p) || (p.precio >= currentMin && p.precio <= currentMax))
           );
         });
         if (!items.length) return;
-        if (sortMode === "precio-asc") items.sort(function (a, b) { return a.precio - b.precio; });
-        if (sortMode === "precio-desc") items.sort(function (a, b) { return b.precio - a.precio; });
+        // Al ordenar por precio, los servicios (sin precio) quedan al final.
+        var priceOf = function (p, fallback) { return p.precio == null ? fallback : p.precio; };
+        if (sortMode === "precio-asc") items.sort(function (a, b) { return priceOf(a, Infinity) - priceOf(b, Infinity); });
+        if (sortMode === "precio-desc") items.sort(function (a, b) { return priceOf(b, -Infinity) - priceOf(a, -Infinity); });
         visibleCount += items.length;
         html += '<h2 class="shop-category-heading">' + cat + "</h2>";
         html += '<div class="shop-grid">' + items.map(productCardHTML).join("") + "</div>";
@@ -184,5 +213,25 @@
     }
   }
 
-  document.addEventListener("DOMContentLoaded", init);
+  /*
+   * Móvil y tablet: los filtros se pliegan tras el botón "Filtros" para que
+   * los productos aparezcan en la primera pantalla. En desktop el CSS los
+   * muestra siempre y el botón no se ve.
+   */
+  function initFiltersToggle() {
+    var toggle = document.getElementById("shop-filters-toggle");
+    var panel = document.getElementById("shop-filters");
+    if (!toggle || !panel) return;
+
+    toggle.addEventListener("click", function () {
+      var open = toggle.getAttribute("aria-expanded") !== "true";
+      toggle.setAttribute("aria-expanded", String(open));
+      panel.classList.toggle("is-open", open);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    init();
+    initFiltersToggle();
+  });
 })();

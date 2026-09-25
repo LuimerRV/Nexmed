@@ -14,9 +14,13 @@
     );
   }
 
+  function displayName(p) {
+    return window.NEXMED_DISPLAY_NAME ? window.NEXMED_DISPLAY_NAME(p) : p.nombre;
+  }
+
   function relatedCardHTML(p) {
     var imgTag = p.imagen
-      ? '<img src="' + p.imagen + '" alt="' + p.nombre + '" loading="lazy" onerror="this.style.display=\'none\'" />'
+      ? '<img src="' + p.imagen + '" alt="' + displayName(p) + '" loading="lazy" onerror="this.style.display=\'none\'" />'
       : '<div class="shop-card-placeholder" aria-hidden="true"></div>';
     var href = "ficha-producto.html?codigo=" + encodeURIComponent(p.codigo);
     return (
@@ -24,7 +28,7 @@
         '<a href="' + href + '" class="product-card__link">' +
           '<div class="product-card__image">' + imgTag + "</div>" +
           '<div class="product-card__body">' +
-            '<h3 class="product-card__title">' + p.nombre + "</h3>" +
+            '<h3 class="product-card__title">' + displayName(p) + "</h3>" +
             '<span class="product-card__price">' + money(p.precio) + "</span>" +
           "</div>" +
         "</a>" +
@@ -41,15 +45,44 @@
 
   function bundleItemHTML(p) {
     var imgTag = p.imagen
-      ? '<img src="' + p.imagen + '" alt="' + p.nombre + '" loading="lazy" onerror="this.style.display=\'none\'" />'
+      ? '<img src="' + p.imagen + '" alt="' + displayName(p) + '" loading="lazy" onerror="this.style.display=\'none\'" />'
       : '<div class="shop-card-placeholder" aria-hidden="true"></div>';
     return (
       '<div class="pdp-bundle__item">' +
         '<div class="pdp-bundle__item-thumb">' + imgTag + "</div>" +
-        '<p class="pdp-bundle__item-name">' + p.nombre + "</p>" +
+        '<p class="pdp-bundle__item-name">' + displayName(p) + "</p>" +
         '<p class="pdp-bundle__item-price">' + money(p.precio) + "</p>" +
       "</div>"
     );
+  }
+
+  /* Ficha de servicio: puntos, ubicación, teléfonos y agendamiento externo. */
+  function renderService(product, serviceEl) {
+    var info = product.servicio;
+    if (!serviceEl || !info) return;
+    var points = document.getElementById("pdp-service-points");
+    if (points) {
+      points.innerHTML = info.puntos
+        .map(function (text) {
+          return "<li>" + text + "</li>";
+        })
+        .join("");
+    }
+    var location = document.getElementById("pdp-service-location");
+    if (location) location.textContent = info.ubicacion;
+    var phones = document.getElementById("pdp-service-phones");
+    if (phones) {
+      phones.innerHTML = info.telefonos
+        .map(function (tel) {
+          return '<a href="tel:' + tel.replace(/\s+/g, "") + '">' + tel + "</a>";
+        })
+        .join(" / ");
+    }
+    var cta = document.getElementById("pdp-service-cta");
+    if (cta) cta.setAttribute("href", info.agendarUrl);
+    var note = document.getElementById("pdp-service-note");
+    if (note) note.textContent = "Te llevaremos al sistema de agendamiento de " + product.marca + ".";
+    serviceEl.hidden = false;
   }
 
   function initRelatedCarousel() {
@@ -94,7 +127,9 @@
     var notFound = !product;
     if (!product) product = products[0];
 
-    document.title = product.nombre + " — NEXMED";
+    var name = displayName(product);
+    var isService = window.NEXMED_IS_SERVICE && window.NEXMED_IS_SERVICE(product);
+    document.title = name + " — NEXMED";
 
     var notFoundBanner = document.getElementById("pdp-not-found");
     if (notFoundBanner) notFoundBanner.hidden = !notFound;
@@ -102,7 +137,7 @@
     var breadcrumbCat = document.getElementById("pdp-breadcrumb-categoria");
     if (breadcrumbCat) breadcrumbCat.textContent = product.categoriaLabel;
     var breadcrumbName = document.getElementById("pdp-breadcrumb-producto");
-    if (breadcrumbName) breadcrumbName.textContent = product.nombre;
+    if (breadcrumbName) breadcrumbName.textContent = name;
 
     var imageWrap = document.getElementById("pdp-image-wrap");
     var galleryThumbs = document.getElementById("pdp-gallery-thumbs");
@@ -112,8 +147,9 @@
       if (!imageWrap) return;
       if (src) {
         imageWrap.innerHTML =
-          '<img src="' + src + '" alt="' + product.nombre + '" onerror="this.style.display=\'none\'" />';
+          '<img src="' + src + '" alt="' + name + '" onerror="this.style.display=\'none\'" />';
         imageWrap.classList.remove("shop-card-placeholder");
+        imageWrap.classList.toggle("pdp-image-wrap--logo", isService);
       } else {
         imageWrap.innerHTML = "";
         imageWrap.classList.add("shop-card-placeholder");
@@ -150,11 +186,25 @@
     var categoryPills = document.getElementById("pdp-category-pills");
     if (categoryPills) categoryPills.innerHTML = pillsHTML(product.categoriaLabel);
     var titleEl = document.getElementById("pdp-title");
-    if (titleEl) titleEl.textContent = product.nombre;
-    var priceEl = document.getElementById("pdp-price");
-    if (priceEl) priceEl.textContent = money(product.precio);
+    if (titleEl) titleEl.textContent = name;
     var brandEl = document.getElementById("pdp-brand");
     if (brandEl) brandEl.textContent = product.marca;
+
+    var commerceEl = document.getElementById("pdp-commerce");
+    var serviceEl = document.getElementById("pdp-service");
+    if (isService) {
+      // Servicio no comprable: sin precio, cantidad, carrito ni combos.
+      if (commerceEl) commerceEl.hidden = true;
+      renderService(product, serviceEl);
+      var bundle = document.getElementById("pdp-bundle-section");
+      if (bundle) bundle.hidden = true;
+      var relatedSec = document.getElementById("pdp-related-section");
+      if (relatedSec) relatedSec.hidden = true;
+      return;
+    }
+
+    var priceEl = document.getElementById("pdp-price");
+    if (priceEl) priceEl.textContent = money(product.precio);
 
     var pendingList = [];
     if (!product.presentacion) pendingList.push("presentación");
@@ -202,7 +252,11 @@
     }
 
     var sameCategory = products.filter(function (p) {
-      return p.categoriaLabel === product.categoriaLabel && p.codigo !== product.codigo;
+      return (
+        p.categoriaLabel === product.categoriaLabel &&
+        p.codigo !== product.codigo &&
+        !(window.NEXMED_IS_SERVICE && window.NEXMED_IS_SERVICE(p))
+      );
     });
 
     var related = sameCategory.slice(0, 4);

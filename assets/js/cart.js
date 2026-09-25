@@ -47,7 +47,9 @@
 
   function addItem(codigo, qty) {
     qty = Math.max(1, parseInt(qty, 10) || 1);
-    if (!getProduct(codigo)) return;
+    var product = getProduct(codigo);
+    // Los servicios (p. ej. Urofusión) se agendan externamente: nunca al carrito.
+    if (!product || window.NEXMED_IS_SERVICE(product)) return;
     var items = readRawCart();
     var found = findRawItem(items, codigo);
     if (found) {
@@ -87,7 +89,7 @@
         if (!p) return null;
         return {
           codigo: p.codigo,
-          nombre: p.nombre,
+          nombre: window.NEXMED_DISPLAY_NAME(p),
           precio: p.precio,
           imagen: p.imagen,
           cantidad: it.cantidad,
@@ -158,7 +160,7 @@
   function crossSellHTML() {
     var cartCodigos = readRawCart().map(function (it) { return it.codigo; });
     var candidates = (window.NEXMED_PRODUCTS || []).filter(function (p) {
-      return cartCodigos.indexOf(p.codigo) === -1;
+      return cartCodigos.indexOf(p.codigo) === -1 && !window.NEXMED_IS_SERVICE(p);
     });
     var picks = candidates.slice(0, 2);
     if (!picks.length) return "";
@@ -174,10 +176,10 @@
               '<div class="about-list-item">' +
                 '<span class="about-list-item__thumb">' + imgTag + "</span>" +
                 '<span class="about-list-item__info">' +
-                  '<a href="ficha-producto.html?codigo=' + encodeURIComponent(p.codigo) + '" class="about-list-item__name">' + escapeHtml(p.nombre) + "</a>" +
+                  '<a href="ficha-producto.html?codigo=' + encodeURIComponent(p.codigo) + '" class="about-list-item__name">' + escapeHtml(window.NEXMED_DISPLAY_NAME(p)) + "</a>" +
                   '<span class="about-list-item__price">' + money(p.precio) + "</span>" +
                 "</span>" +
-                '<button type="button" class="about-list-item__cart" aria-label="Agregar ' + escapeHtml(p.nombre) + ' al carrito">' +
+                '<button type="button" class="about-list-item__cart" aria-label="Agregar ' + escapeHtml(window.NEXMED_DISPLAY_NAME(p)) + ' al carrito">' +
                   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="M12 5v14M5 12h14" /></svg>' +
                 "</button>" +
               "</div>"
@@ -279,7 +281,9 @@
 
   function initAddToCartDelegation() {
     document.addEventListener("click", function (event) {
-      var btn = event.target.closest(".product-card__cta--primary, .about-list-item__cart");
+      // Solo <button>: los enlaces primarios (p. ej. "Agendar hora" de un
+      // servicio) deben navegar normalmente.
+      var btn = event.target.closest("button.product-card__cta--primary, .about-list-item__cart");
       if (!btn) return;
       event.preventDefault();
       var container = btn.closest(".product-card, .about-list-item");
