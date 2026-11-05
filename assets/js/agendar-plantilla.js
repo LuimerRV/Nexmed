@@ -5,16 +5,23 @@
    * Compra de plantilla a medida (agendar-plantilla.html):
    *   1 Datos y configuración → 2 Receta (obligatoria) → 3 Resumen y pago →
    *   4 Confirmación.
-   * Sin calendario: NEXMED coordina la entrega directamente con el paciente.
-   * Quien no tiene receta es derivado por WhatsApp; la evaluación con
-   * agendamiento queda como "Próximamente".
+   * La entrega la coordina NEXMED directamente con el paciente.
+   * Quien no tiene receta puede escribir por WhatsApp o entrar a la rama
+   * "evaluacion" (calendario de evaluacion-calendario.js), que no es parte
+   * de la compra: oculta el stepper y termina en "evaluacion-ok", sin pago.
    */
   var STEP_LABELS = {
     1: "Configuración de la plantilla",
     2: "Carga de la receta médica",
     3: "Resumen y pago",
     4: "Confirmación",
+    evaluacion: "Agendar evaluación",
+    "evaluacion-ok": "Evaluación agendada",
   };
+
+  function isPurchaseStep(step) {
+    return typeof step === "number";
+  }
 
   // Precio público de OP2026-EM (IVA incluido, fuente: archivo del cliente).
   var PRODUCT_LABEL = "Plantilla a medida";
@@ -69,7 +76,10 @@
       return el && el.value.trim() ? el.value.trim() : "";
     }
 
+    var stepper = document.getElementById("agendar-stepper");
+
     function renderStepper() {
+      if (stepper) stepper.hidden = !isPurchaseStep(current);
       stepperSteps.forEach(function (el) {
         var stepNum = Number(el.getAttribute("data-step"));
         el.classList.remove("is-active", "is-done");
@@ -85,7 +95,8 @@
     }
 
     function renderActions() {
-      if (current === 4) {
+      // Confirmación y rama de evaluación tienen sus propias acciones.
+      if (current === 4 || !isPurchaseStep(current)) {
         actionsBar.hidden = true;
         return;
       }
@@ -119,6 +130,7 @@
       if (stepCaption) stepCaption.textContent = STEP_LABELS[step];
       if (recetaWarning) recetaWarning.hidden = true;
       if (step === 3) renderReview();
+      if (step === "evaluacion") renderEvaluacionResumen();
       renderStepper();
       renderPanels();
       renderActions();
@@ -199,7 +211,7 @@
 
     if (nextBtn) {
       nextBtn.addEventListener("click", function () {
-        // La receta es obligatoria (la evaluación sin receta está "Próximamente").
+        // La receta es obligatoria para comprar; sin receta: WhatsApp o evaluación.
         if (current === 2 && !state.recetaNombre) {
           if (recetaWarning) recetaWarning.hidden = false;
           return;
@@ -212,11 +224,61 @@
         if (current > 1) goTo(current - 1);
       });
     }
+    // data-goto acepta un paso numérico ("1") o una rama con nombre ("evaluacion").
     document.querySelectorAll("[data-goto]").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        goTo(Number(btn.getAttribute("data-goto")));
+        var target = btn.getAttribute("data-goto");
+        goTo(/^\d+$/.test(target) ? Number(target) : target);
       });
     });
+
+    /* --- Rama "sin receta": evaluación profesional ---------------------- */
+    var evaluacion = { date: null, time: null };
+    var evaluacionConfirmar = document.getElementById("evaluacion-confirmar");
+    var evaluacionWarning = document.getElementById("evaluacion-warning");
+    var calendarRoot = document.getElementById("evaluacion-calendario");
+    var calendario =
+      calendarRoot && window.NexmedCalendario
+        ? window.NexmedCalendario.create(calendarRoot, {
+            onChange: function (selection) {
+              evaluacion = selection;
+              renderEvaluacionResumen();
+            },
+          })
+        : null;
+
+    function setText(id, value) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = value || "—";
+    }
+
+    function contactoEvaluacion() {
+      return fieldValue("agendar-telefono") || fieldValue("agendar-correo");
+    }
+
+    function renderEvaluacionResumen() {
+      var dia = evaluacion.date && calendario ? calendario.formatDate(evaluacion.date) : "";
+      setText("evaluacion-dia", dia);
+      setText("evaluacion-hora", evaluacion.time);
+      setText("evaluacion-nombre", fieldValue("agendar-nombre"));
+      setText("evaluacion-contacto", contactoEvaluacion());
+      if (evaluacionConfirmar) evaluacionConfirmar.disabled = !(evaluacion.date && evaluacion.time);
+      if (evaluacionWarning) evaluacionWarning.hidden = true;
+    }
+
+    if (evaluacionConfirmar) {
+      evaluacionConfirmar.addEventListener("click", function () {
+        // Sin nombre y un medio de contacto, NEXMED no puede confirmar la cita.
+        if (!fieldValue("agendar-nombre") || !contactoEvaluacion()) {
+          if (evaluacionWarning) evaluacionWarning.hidden = false;
+          return;
+        }
+        setText("evaluacion-ok-dia", calendario.formatDate(evaluacion.date));
+        setText("evaluacion-ok-hora", evaluacion.time);
+        setText("evaluacion-ok-nombre", fieldValue("agendar-nombre"));
+        goTo("evaluacion-ok");
+      });
+    }
 
     var pagarBtn = document.getElementById("pagar-btn");
     if (pagarBtn) {
