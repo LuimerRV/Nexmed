@@ -20,9 +20,11 @@
     Flujo de compra de plantilla a medida, sin backend real (como el resto de
     los formularios del sitio): datos → receta → resumen y pago →
     confirmación. La carga de receta, el "pago" y los correos son
-    presentacionales. Sin calendario: la entrega la coordina NEXMED
-    directamente con el paciente; el agendamiento con Reservo se habilitará
-    más adelante y solo para evaluaciones ("Próximamente").
+    presentacionales. La entrega la coordina NEXMED directamente con el
+    paciente (sin calendario en la compra). Quien no tiene receta puede
+    agendar una evaluación profesional con el calendario de
+    evaluacion-calendario.js: rama aparte que termina en su propia
+    confirmación, sin pago. Disponibilidad provisoria hasta integrar Reservo.
     Precio: $70.000 IVA incluido (real de OP2026-EM); el desglose neto/IVA
     se calcula en agendar-plantilla.js.
   -->
@@ -313,7 +315,7 @@
               </div>
 
               <p id="receta-warning" hidden class="text-sm text-[#d92d20]">
-                Adjunta tu receta para continuar. Si no la tienes, escríbenos por WhatsApp y te derivamos.
+                Adjunta tu receta para continuar. Si no la tienes, escríbenos por WhatsApp o agenda una evaluación.
               </p>
             </div>
 
@@ -336,14 +338,11 @@
               </a>
 
               <div class="agendar-evaluacion">
-                <div class="flex items-center justify-between gap-3">
-                  <p class="text-sm font-semibold text-ink-primary">Evaluación profesional</p>
-                  <span class="agendar-soon">Próximamente</span>
-                </div>
+                <p class="text-sm font-semibold text-ink-primary">Evaluación profesional</p>
                 <p class="mt-1 text-sm text-ink-secondary">
                   Podemos agendar una evaluación profesional antes de fabricar tu plantilla.
                 </p>
-                <button type="button" class="pdp-actions__secondary mt-3 w-full" disabled aria-disabled="true">
+                <button type="button" class="pdp-actions__secondary mt-3 w-full" data-goto="evaluacion">
                   Agendar evaluación
                 </button>
               </div>
@@ -416,6 +415,92 @@
                   <li>Fabricación de tu plantilla</li>
                   <li>Te contactamos para coordinar la entrega</li>
                 </ul>
+              </div>
+
+              <div class="confirmation__actions">
+                <a href="index.html" class="pdp-actions__secondary">Volver al inicio</a>
+              </div>
+            </div>
+          </div>
+
+          <!--
+            Rama "sin receta": agendar evaluación profesional. No forma parte
+            de la compra (el stepper se oculta) y termina en su propia
+            confirmación. La grilla y los horarios los pinta
+            evaluacion-calendario.js.
+          -->
+          <div class="step-panel" data-step-panel="evaluacion" hidden>
+            <div class="step-panel__main">
+              <div>
+                <h2 class="font-display text-[20px] font-semibold text-ink-primary">Agendar evaluación profesional</h2>
+                <p class="mt-1 text-sm text-ink-secondary">Elige un día y un horario disponible.</p>
+              </div>
+
+              <div id="evaluacion-calendario" class="cal">
+                <div class="cal__header">
+                  <button type="button" class="cal__nav" data-cal-prev aria-label="Mes anterior">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4"><path d="M15 18l-6-6 6-6" /></svg>
+                  </button>
+                  <p class="cal__month" data-cal-month aria-live="polite"></p>
+                  <button type="button" class="cal__nav" data-cal-next aria-label="Mes siguiente">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-4 w-4"><path d="M9 18l6-6-6-6" /></svg>
+                  </button>
+                </div>
+                <div class="cal__weekdays" aria-hidden="true">
+                  <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                </div>
+                <div class="cal__grid" data-cal-grid role="group" aria-label="Días del mes"></div>
+
+                <div class="cal__slots-block">
+                  <p id="evaluacion-slots-label" class="cal__slots-label">Horarios disponibles</p>
+                  <p class="cal__slots-hint" data-cal-slots-hint>Elige un día para ver los horarios.</p>
+                  <div class="cal__slots" data-cal-slots role="group" aria-labelledby="evaluacion-slots-label"></div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="step-summary">
+              <p class="step-summary__heading">Tu evaluación</p>
+              <div class="step-summary__list">
+                <p><strong>Día:</strong> <span id="evaluacion-dia">—</span></p>
+                <p><strong>Hora:</strong> <span id="evaluacion-hora">—</span></p>
+                <p><strong>Nombre:</strong> <span id="evaluacion-nombre">—</span></p>
+                <p><strong>Contacto:</strong> <span id="evaluacion-contacto">—</span></p>
+              </div>
+              <button
+                type="button"
+                id="evaluacion-confirmar"
+                class="agendar-actions__next mt-5 w-full justify-center"
+                disabled
+              >
+                Confirmar evaluación
+              </button>
+              <p id="evaluacion-warning" class="mt-3 text-sm text-[#d92d20]" hidden>
+                Completa tu nombre y un teléfono o correo para agendar.
+                <button type="button" class="review-edit" style="margin-top: 0" data-goto="1">Completar datos</button>
+              </p>
+            </aside>
+
+            <!-- Tras el resumen en móvil; bajo el calendario en desktop (col. 1 de la grilla). -->
+            <button type="button" class="agendar-actions__back self-start justify-self-start" data-goto="2">← Volver</button>
+          </div>
+
+          <!-- Confirmación de la evaluación -->
+          <div data-step-panel="evaluacion-ok" hidden>
+            <div class="confirmation">
+              <span class="confirmation__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8"><path d="M20 6L9 17l-5-5" /></svg>
+              </span>
+              <h2 class="confirmation__title">¡Evaluación agendada!</h2>
+              <p class="confirmation__order">Enviamos la confirmación a tu correo y al equipo NEXMED</p>
+
+              <div class="confirmation__receipt">
+                <p class="confirmation__steps-heading">Detalle de la cita</p>
+                <div class="mt-3">
+                  <div class="step-summary__row"><span>Día</span><span id="evaluacion-ok-dia">—</span></div>
+                  <div class="step-summary__row"><span>Hora</span><span id="evaluacion-ok-hora">—</span></div>
+                  <div class="step-summary__row"><span>Nombre</span><span id="evaluacion-ok-nombre">—</span></div>
+                </div>
               </div>
 
               <div class="confirmation__actions">
@@ -544,6 +629,7 @@
     <script src="assets/js/cart.js" defer></script>
     <script src="assets/js/header.js" defer></script>
     <script src="assets/js/scroll-reveal.js" defer></script>
+    <script src="assets/js/evaluacion-calendario.js" defer></script>
     <script src="assets/js/agendar-plantilla.js" defer></script>
   </body>
 </html>
